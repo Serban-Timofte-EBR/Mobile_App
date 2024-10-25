@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.AboutFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:orientation="vertical"
+        android:layout_gravity="center"
+
+        android:layout_marginBottom="200dp"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:id="@+id/timofte_serban_about_fragment_tv_damapp"
+
+            android:text="@string/about_dam_app"
+
+            android:layout_gravity="center"
+
+            android:background="@drawable/baseline_stroke_rectangle_24"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:id="@+id/timofte_serban_about_fragment_tv_version"
+
+            android:text="@string/about_version_v1_0_0"
+
+            android:layout_gravity="center"
+
+            android:layout_marginTop="40dp"
+
+            android:background="@drawable/baseline_stroke_rectangle_24"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:id="@+id/timofte_serban_about_fragment_tv_year"
+
+            android:text="@string/about_year_2024"
+
+            android:layout_gravity="center"
+
+            android:layout_marginTop="40dp"
+
+            android:background="@drawable/baseline_stroke_rectangle_24"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:id="@+id/timofte_serban_about_fragment_tv_team"
+
+            android:text="@string/about_team_1089_1092_and_1100"
+
+            android:layout_gravity="center"
+
+            android:layout_marginTop="40dp"
+
+            android:background="@drawable/baseline_stroke_rectangle_24"
+            />
+    </LinearLayout>
+
+</FrameLayout>
