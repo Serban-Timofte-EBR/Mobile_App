@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">Subiect1_Task_Manager</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_statistics">Statistics</string>
+    <string name="menu_about">About</string>
+    <string name="add_task_title">Add a task</string>
+    <string name="add_enter_the_deadline">Enter the deadline</string>
+    <string name="add_enter_the_username">Enter the username</string>
+    <string name="add_enter_the_description">Enter the description</string>
+    <string name="add_select_the_category">Select the category</string>
+    <string name="add_10_eur">10</string>
+    <string name="add_20_eur">20</string>
+    <string name="add_30_eur">30</string>
+    <string name="add_select_price">Select Price in EUR</string>
+    <string name="add_save">Save</string>
+
+    <string-array name="add_category">
+        <item>Web Development</item>
+        <item>Android Development</item>
+        <item>DevOps</item>
+        <item>Data Engineering</item>
+    </string-array>
+</resources>
