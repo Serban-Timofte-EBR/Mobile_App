@@ -2,6 +2,7 @@ package eu.ase.ro.myapplication;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioGroup;
@@ -76,7 +77,19 @@ public class AddTaskActivity extends AppCompatActivity {
         String username = tietUsername.getText().toString();
         String description = tietDescription.getText().toString();
         String category = (String) spnCategory.getSelectedItem();
-        Double price = rgPrice.getCheckedRadioButtonId() == R.id.add_rb_price_10 ? 10.0 : rgPrice.getCheckedRadioButtonId() == R.id.add_rb_price_20 ? 20.0 : 30.0;
+        int selectedPriceId = rgPrice.getCheckedRadioButtonId();
+        Log.d("AddTaskActivity", "Selected RadioButton ID: " + selectedPriceId);
+
+        Double price = null;
+        if (selectedPriceId == R.id.add_rb_price_10) {
+            price = 10.0;
+        } else if (selectedPriceId == R.id.add_rb_price_20) {
+            price = 20.0;
+        } else if (selectedPriceId == R.id.add_rb_price_30) {
+            price = 30.0;
+        }
+
+        Log.d("AddTaskActivity", "Price: " + price);
 
         return new Task(deadline, username, description,category,price);
     }

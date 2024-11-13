@@ -27,4 +27,8 @@
         <item>DevOps</item>
         <item>Data Engineering</item>
     </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Profile fragment</string>
+    <string name="hello_about_fragment">About Fragment</string>
+    <string name="main_menu_import_data">Import Data</string>
 </resources>

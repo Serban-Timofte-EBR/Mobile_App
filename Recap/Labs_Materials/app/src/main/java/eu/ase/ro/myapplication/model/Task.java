@@ -1,9 +1,14 @@
 package eu.ase.ro.myapplication.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
+
 import java.io.Serializable;
 import java.util.Date;
 
-public class Task implements Serializable {
+public class Task implements Parcelable {
     private Date deadline;
     private String username;
     private String description;
@@ -71,4 +76,38 @@ public class Task implements Serializable {
                 ", pricePerHour=" + pricePerHour +
                 '}';
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel dest, int flags) {
+        dest.writeString(DateConverter.fromDate(deadline));
+        dest.writeString(username);
+        dest.writeString(description);
+        dest.writeString(category);
+        dest.writeDouble(pricePerHour);
+    }
+
+    protected Task(Parcel in) {
+        deadline = DateConverter.toDate(in.readString());
+        username = in.readString();
+        description = in.readString();
+        category = in.readString();
+        pricePerHour = in.readDouble();
+    }
+
+    public static final Creator<Task> CREATOR = new Creator<Task>() {
+        @Override
+        public Task createFromParcel(Parcel in) {
+            return new Task(in);
+        }
+
+        @Override
+        public Task[] newArray(int size) {
+            return new Task[size];
+        }
+    };
 }

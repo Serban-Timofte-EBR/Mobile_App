@@ -21,6 +21,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
+import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -32,6 +33,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import eu.ase.ro.myapplication.databinding.ActivityMainBinding;
+import eu.ase.ro.myapplication.fragments.AboutFragment;
+import eu.ase.ro.myapplication.fragments.HomeFragment;
+import eu.ase.ro.myapplication.fragments.ProfileFragment;
 import eu.ase.ro.myapplication.model.Task;
 
 public class MainActivity extends AppCompatActivity {
@@ -42,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
     private ActivityResultLauncher<Intent> launcher;
 
     private List<Task> tasks = new ArrayList<>();
+
+    private Fragment currentFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,14 +67,28 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(getApplicationContext(), AddTaskActivity.class);
             launcher.launch(intent);
         });
+
+        if(savedInstanceState == null) {
+            currentFragment = HomeFragment.getInstance(tasks);
+            openFragment();
+            navigationView.setCheckedItem(R.id.nav_home);
+        }
     }
 
     // preiau info de la add task
     private ActivityResultCallback<ActivityResult> getAddTaskCallback() {
         return result -> {
             if(result.getResultCode() == RESULT_OK && result.getData() != null) {
-                Task task = (Task) result.getData().getSerializableExtra(AddTaskActivity.TASK_KEY);
+                // Pentru comunicare acitivtate -> activitate
+//                Task task = (Task) result.getData().getSerializableExtra(AddTaskActivity.TASK_KEY);
+//                tasks.add(task);
+
+                // Pentru comunicare acitivtate -> fragment
+                Task task = result.getData().getParcelableExtra(AddTaskActivity.TASK_KEY);
                 tasks.add(task);
+                if(currentFragment instanceof HomeFragment) {
+                    ((HomeFragment) currentFragment).notifyAdapter();
+                }
                 Log.i("MainActivity add a task action", "taks = " + tasks.toString());
             }
         };
@@ -83,21 +103,48 @@ public class MainActivity extends AppCompatActivity {
         actionBarDrawerToggle.syncState();
     }
 
+    // Pentru a adauga acel meniu clasic cu 3 puncte verticale
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    // Pentru a interactiona cu actiuni
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId() == R.id.action_import_data) {
+            Toast.makeText(this, "Import data clicked!", Toast.LENGTH_SHORT).show();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     private NavigationView.OnNavigationItemSelectedListener getItemListenerEvent() {
         return new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 if(item.getItemId() == R.id.nav_home) {
                     Toast.makeText(MainActivity.this, "Home is clicked", Toast.LENGTH_SHORT).show();
+                    currentFragment = HomeFragment.getInstance(tasks);
                 }
                 else if (item.getItemId() == R.id.nav_about) {
                     Toast.makeText(MainActivity.this, "About is clicked", Toast.LENGTH_SHORT).show();
+                    currentFragment = new AboutFragment();
                 } else if(item.getItemId() == R.id.nav_profile) {
                     Toast.makeText(MainActivity.this, "Profile is clicked", Toast.LENGTH_SHORT).show();
+                    currentFragment = new ProfileFragment();
                 }
                 drawerLayout.closeDrawer(GravityCompat.START);
+                openFragment();
                 return true;
             }
         };
+    }
+
+    private void openFragment() {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.main_fl_content, currentFragment)
+                .commit();
     }
 }
