@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/lv_row">
+
+    <ImageView
+        android:id="@+id/row_iv_deadline"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/row_tv_deadline"
+
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="8dp"
+
+        android:src="@drawable/baseline_access_time_24"
+        android:contentDescription="@string/row_deadline"/>
+
+    <TextView
+        android:id="@+id/row_tv_deadline"
+
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+
+        android:text="12-12.2023"
+
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@id/row_iv_deadline"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+
+        android:textAlignment="center"
+        />
+
+    <ImageView
+        android:id="@+id/row_iv_username"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        app:layout_constraintTop_toBottomOf="@id/row_iv_deadline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/row_tv_username"
+
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
+
+        android:src="@drawable/baseline_person_24"
+        android:contentDescription="@string/row_deadline"/>
+
+    <TextView
+        android:id="@+id/row_tv_username"
+
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+
+        android:text="serbbi02"
+        android:textAllCaps="true"
+
+        app:layout_constraintTop_toBottomOf="@id/row_iv_deadline"
+        app:layout_constraintStart_toEndOf="@id/row_iv_username"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+
+        android:textAlignment="center"
+        />
+
+    <ImageView
+        android:id="@+id/row_iv_price"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        app:layout_constraintTop_toBottomOf="@id/row_iv_username"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/row_tv_price"
+
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
+
+        android:src="@drawable/baseline_euro_24"
+        android:contentDescription="@string/row_deadline"/>
+
+    <TextView
+        android:id="@+id/row_tv_price"
+
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+
+        android:text="@string/row_price_template"
+
+        app:layout_constraintTop_toBottomOf="@id/row_iv_username"
+        app:layout_constraintStart_toEndOf="@id/row_iv_price"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+
+        android:textAlignment="center"
+        />
+
+    <ImageView
+        android:id="@+id/row_iv_description"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        app:layout_constraintTop_toBottomOf="@id/row_iv_price"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/row_tv_description"
+        app:layout_constraintBottom_toBottomOf="parent"
+
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="8dp"
+
+        android:src="@drawable/baseline_task_alt_24"
+        android:contentDescription="@string/row_deadline"/>
+
+    <TextView
+        android:id="@+id/row_tv_description"
+
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+
+        android:text="Lorem Ipsum"
+
+        app:layout_constraintTop_toBottomOf="@id/row_iv_price"
+        app:layout_constraintStart_toEndOf="@id/row_iv_description"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+
+        android:textAlignment="center"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -17,6 +17,7 @@ import java.util.List;
 
 import eu.ase.ro.myapplication.R;
 import eu.ase.ro.myapplication.model.Task;
+import eu.ase.ro.myapplication.model.TaskAdapter;
 
 
 public class HomeFragment extends Fragment {
@@ -57,9 +58,10 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         if(getContext() != null) {
             lvTasks = view.findViewById(R.id.hom_lv_tasks);
-            ArrayAdapter<Task> adapter = new ArrayAdapter<>(getContext().getApplicationContext(),
-                    android.R.layout.simple_list_item_1,
-                    tasks);
+            TaskAdapter adapter = new TaskAdapter(getContext().getApplicationContext(),
+                    R.layout.lv_row,
+                    tasks,
+                    getLayoutInflater());
             lvTasks.setAdapter(adapter);
         }
         return view;

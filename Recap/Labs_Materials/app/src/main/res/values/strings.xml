@@ -31,4 +31,6 @@
     <string name="hello_blank_fragment">Profile fragment</string>
     <string name="hello_about_fragment">About Fragment</string>
     <string name="main_menu_import_data">Import Data</string>
+    <string name="row_deadline">Deadline</string>
+    <string name="row_price_template">%.2f EUR</string>
 </resources>

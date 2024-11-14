@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">Pet Manager</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_add_pet">Add Pet</string>
+    <string name="add_pet_name">Pet Name</string>
+    <string name="add_enter_pet_born_date">Pet born date</string>
+    <string name="add_pet_age">Pet Age</string>
+    <string name="add_save">Save</string>
+
+    <string-array name="add_ownerNames">
+        <item>Serban</item>
+        <item>Olivia</item>
+        <item>Cosmin</item>
+    </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="nav_all_pets">All Pets</string>
+</resources>
