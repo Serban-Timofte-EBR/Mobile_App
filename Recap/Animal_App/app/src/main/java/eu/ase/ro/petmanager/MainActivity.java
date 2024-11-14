@@ -65,6 +65,12 @@ public class MainActivity extends AppCompatActivity {
             intent = new Intent(getApplicationContext(), AddPetActivity.class);
             launcher.launch(intent);
         });
+
+        if (savedInstanceState == null) {
+            currentFragment = AllPetsFragment.getInstance(pets);
+            openFragment();
+            navigationView.setCheckedItem(R.id.nav_all_pets);
+        }
        }
 
     private void configNavigation() {
@@ -124,6 +130,9 @@ public class MainActivity extends AppCompatActivity {
             if(result.getData() != null && result.getResultCode() == RESULT_OK) {
                 Pet userPet = (Pet) result.getData().getParcelableExtra(AddPetActivity.PET_KEY);
                 pets.add(userPet);
+                if(currentFragment instanceof AllPetsFragment) {
+                    ((AllPetsFragment) currentFragment).notifyAdapter();
+                }
                 Log.i("MainActivity", pets.toString());
             }
         };

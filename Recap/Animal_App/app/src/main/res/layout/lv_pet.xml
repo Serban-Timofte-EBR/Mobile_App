@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#FBEAEB">
+
+    <ImageView
+        android:id="@+id/row_iv_petName"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/row_tv_petName"
+
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
+
+        android:src="@drawable/baseline_pets_24"
+        android:contentDescription="Pet Name Icon" />
+
+    <TextView
+        android:id="@+id/row_tv_petName"
+
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@id/row_iv_petName"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        android:layout_marginTop="8dp"
+
+        android:text="Pet Name"
+        android:textAlignment="center"/>
+
+    <ImageView
+        android:id="@+id/row_iv_petOwner"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/row_iv_petName"
+        app:layout_constraintEnd_toStartOf="@id/row_tv_petOwner"
+
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
+
+        android:src="@drawable/baseline_person_search_24"
+        android:contentDescription="Pet Name Icon" />
+
+    <TextView
+        android:id="@+id/row_tv_petOwner"
+
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+
+        app:layout_constraintTop_toBottomOf="@id/row_iv_petName"
+        app:layout_constraintStart_toEndOf="@id/row_iv_petOwner"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        android:layout_marginTop="8dp"
+
+        android:text="Pet Owner"
+        android:textAlignment="center"/>
+
+    <ImageView
+        android:id="@+id/row_iv_petBith"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/row_iv_petOwner"
+        app:layout_constraintEnd_toStartOf="@id/row_tv_petBirth"
+
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
+
+        android:src="@drawable/baseline_cake_24"
+        android:contentDescription="Pet Name Icon" />
+
+    <TextView
+        android:id="@+id/row_tv_petBirth"
+
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+
+        app:layout_constraintTop_toBottomOf="@id/row_iv_petOwner"
+        app:layout_constraintStart_toEndOf="@id/row_iv_petBith"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        android:layout_marginTop="8dp"
+
+        android:text="Pet Bithday"
+        android:textAlignment="center"/>
+
+    <ImageView
+        android:id="@+id/row_iv_petAge"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/row_iv_petBith"
+        app:layout_constraintEnd_toStartOf="@id/row_tv_petAge"
+        app:layout_constraintBottom_toBottomOf="parent"
+
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="8dp"
+
+        android:src="@drawable/baseline_scale_24"
+        android:contentDescription="Pet Name Icon" />
+
+    <TextView
+        android:id="@+id/row_tv_petAge"
+
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+
+        app:layout_constraintTop_toBottomOf="@id/row_iv_petBith"
+        app:layout_constraintStart_toEndOf="@id/row_iv_petAge"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        android:layout_marginTop="8dp"
+
+        android:text="@string/row_pet_age_template"
+        android:textAlignment="center"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
