@@ -2,6 +2,8 @@ package eu.ase.ro.damapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -30,6 +32,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import eu.ase.ro.damapp.databinding.ActivityMainBinding;
 import eu.ase.ro.damapp.databinding.FragmentAboutBinding;
@@ -37,8 +42,13 @@ import eu.ase.ro.damapp.fragments.AboutFragment;
 import eu.ase.ro.damapp.fragments.HomeFragment;
 import eu.ase.ro.damapp.fragments.ProfileFragment;
 import eu.ase.ro.damapp.model.Expense;
+import eu.ase.ro.damapp.network.AsyncTaskRunner;
+import eu.ase.ro.damapp.network.Callback;
+import eu.ase.ro.damapp.network.HttpManager;
 
 public class MainActivity extends AppCompatActivity {
+
+    private static final String EXPENSES_URL = "https://api.npoint.io/5380854edf409813c032";
 
     private DrawerLayout drawerLayout;
     private NavigationView navView;
@@ -49,6 +59,13 @@ public class MainActivity extends AppCompatActivity {
     private final List<Expense> expenses = new ArrayList<>();
 
     private Fragment currentFragment;
+
+    // Handlerul se initializeaza la destinatar (la Main) si folosit la sursa (Thread secundar)
+    private final Handler handler = new Handler(Looper.getMainLooper());
+    private final ExecutorService executor = Executors.newCachedThreadPool();
+
+    // Method 3
+//    private final AsyncTaskRunner asyncTaskRunner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -153,6 +170,48 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(),
                     R.string.main_import_data_clicked,
                     Toast.LENGTH_SHORT).show();
+
+            // -----------------------------------------------------------------------------------------
+            // Method 1 - Thread - Not recommanded
+//            Thread thread = new Thread(){
+//                @Override
+//                public void run() {
+//                    // suntem pe un alt fir de executie
+//                        // nu avem acces la views sau context
+//                    HttpManager manager = new HttpManager(EXPENSES_URL);    // in Android.Manifest trebuie pusa permisiunea de a avea acces la internet
+//                    String result = manager.call();
+//
+//                    // Trebuie sa transmitem date catre main
+//                    handler.post(getResultsonUIThread(result)); // sau: daca esti intr o activitate: runOnUiThread(getResultsonUIThread(result));
+//                }
+//
+//                private @NonNull Runnable getResultsonUIThread(String result) {
+//                    return () -> {
+//                        // in acest Runnable rulam pe UI Thread
+//                        Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
+//                    };
+//                }
+//            };
+//            thread.start();
+            // -----------------------------------------------------------------------------------------
+
+            // Method 2 - Execute Service
+            executor.execute(() -> {
+                // Implementam Runnable. Suntem pe alt fir de executie
+                HttpManager manager = new HttpManager(EXPENSES_URL);
+                String result = manager.call();
+
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
+                    }
+                });
+            });
+
+            // -----------------------------------------------------------------------------------------
+            // Method 3 - Generics
+
         }
         return super.onOptionsItemSelected(item);
     }
