@@ -46,10 +46,45 @@
         <item name="android:textColorHint">@color/secondary_text_color</item>
     </style>
 
-    <!-- Stil personalizat pentru Spinner -->
     <style name="CustomSpinner" parent="Widget.AppCompat.Spinner">
         <item name="android:popupBackground">@color/primary_background</item>
         <item name="android:padding">8dp</item>
         <item name="android:textColor">@color/primary_text_color</item>
+    </style>
+
+    <style name="RowContainer">
+        <item name="android:background">@color/row_background_color</item>
+        <item name="android:padding">8dp</item>
+    </style>
+
+    <style name="RowQuestionText">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">#212121</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_margin">8dp</item>
+        <item name="android:textAlignment">center</item>
+    </style>
+
+    <style name="RowAnswerText">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">#388E3C</item>
+        <item name="android:layout_margin">8dp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:fontFamily">@font/poppins_italic</item>
+    </style>
+
+    <style name="RowImage">
+        <item name="android:layout_width">24dp</item>
+        <item name="android:layout_height">24dp</item>
+        <item name="android:layout_margin">8dp</item>
+    </style>
+
+    <style name="DisplayResultCustomContainer">
+        <item name="android:background">@color/light_blue</item>
+        <item name="android:padding">16dp</item>
+    </style>
+
+    <style name="DisplayResultCustomTextView">
+        <item name="android:fontFamily">@font/poppins_bold</item>
     </style>
 </resources>

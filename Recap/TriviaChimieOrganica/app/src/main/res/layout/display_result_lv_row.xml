@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    style="@style/RowContainer"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:id="@+id/timofte_serban_row_iv_question"
+
+        style="@style/RowImage"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/timofte_serban_row_tv_question"
+
+        android:layout_margin="8dp"
+
+        android:src="@drawable/baseline_question_mark_24" />
+
+    <TextView
+        android:id="@+id/timofte_serban_row_tv_question"
+
+        style="@style/RowQuestionText"
+
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+
+        app:layout_constraintStart_toEndOf="@id/timofte_serban_row_iv_question"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/timofte_serban_row_tv_answer"
+
+        android:layout_margin="8dp"
+
+        android:text="Intrebare"
+        android:textAlignment="center"
+        android:textSize="18dp" />
+
+    <ImageView
+        android:id="@+id/timofte_serban_row_iv_answer"
+
+        style="@style/RowImage"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/timofte_serban_row_iv_question"
+        app:layout_constraintEnd_toStartOf="@id/timofte_serban_row_tv_answer"
+        app:layout_constraintBottom_toBottomOf="parent"
+
+        android:layout_margin="8dp"
+
+        android:src="@drawable/baseline_check_circle_outline_24" />
+
+    <TextView
+        android:id="@+id/timofte_serban_row_tv_answer"
+
+        style="@style/RowAnswerText"
+
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+
+        app:layout_constraintStart_toEndOf="@id/timofte_serban_row_iv_answer"
+        app:layout_constraintTop_toBottomOf="@id/timofte_serban_row_iv_question"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+
+        android:layout_margin="8dp"
+        android:layout_marginTop="16dp"
+
+        android:text="Intrebare"
+        android:textAlignment="center"
+        android:textSize="18dp" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

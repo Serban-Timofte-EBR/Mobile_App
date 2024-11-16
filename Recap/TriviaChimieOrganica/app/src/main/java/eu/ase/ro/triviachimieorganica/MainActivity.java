@@ -1,5 +1,6 @@
 package eu.ase.ro.triviachimieorganica;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -45,6 +46,22 @@ public class MainActivity extends AppCompatActivity {
             currentFragment = new HomeFragment();
             openFragment();
             navigationView.setCheckedItem(R.id.timofte_serban_nav_home);
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        Intent intent = getIntent();
+        String resetFragment = intent.getStringExtra("RESET_FRAGMENT");
+
+        if (resetFragment != null && resetFragment.equals("TriviaFragment")) {
+            currentFragment = new TriviaFragment();
+            openFragment();
+            navigationView.setCheckedItem(R.id.timofte_serban_nav_trivia);
+
+            getIntent().removeExtra("RESET_FRAGMENT");
         }
     }
 

@@ -1,6 +1,8 @@
 package eu.ase.ro.triviachimieorganica.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +16,10 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -22,14 +28,21 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import eu.ase.ro.triviachimieorganica.DisplayTriviaResult;
 import eu.ase.ro.triviachimieorganica.R;
 import eu.ase.ro.triviachimieorganica.models.Question;
+import eu.ase.ro.triviachimieorganica.models.Result;
 
 public class TriviaFragment extends Fragment {
+    public static final String TRIVIA_SCORE = "trivia_score";
+    public static final String TRIVIA_QUESTIONS = "trivia_questions";
+
     private List<Question> questions = new ArrayList<>();
     private int indexCurrentQuestion = 0;
+    private int score = 0;
 
     private TextView tvQuestion;
 
@@ -49,6 +62,11 @@ public class TriviaFragment extends Fragment {
 
     private Button btnNext;
 
+    private ActivityResultLauncher<Intent> launcher;
+    private Intent intent;
+
+    private List<Result> results = new ArrayList<>();
+
     public TriviaFragment() {
         // Required empty public constructor
     }
@@ -56,6 +74,8 @@ public class TriviaFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), getCallback());
 
         loadQuestions();
         Log.i("TriviaFragment", questions.toString());
@@ -70,13 +90,26 @@ public class TriviaFragment extends Fragment {
         initComponent(view);
         displayQuestion();
 
+        Log.i("TriviaFragment", results.toString());
+
         btnNext.setOnClickListener(v -> {
+            manageScore(view);
+
             if(indexCurrentQuestion == questions.size() - 1) {
                 Toast.makeText(getContext(), "The result is comming soon on a new page!", Toast.LENGTH_SHORT).show();
+
+                Result result = new Result(new Date(), score);
+                results.add(result);
+
+                intent = new Intent(getContext().getApplicationContext(), DisplayTriviaResult.class);
+                Log.i("TriviaFragment", "Scor trimis: " + score);
+                intent.putExtra(TRIVIA_SCORE, score);
+                intent.putParcelableArrayListExtra(TRIVIA_QUESTIONS, (ArrayList<? extends Parcelable>) questions);
+                launcher.launch(intent);
             } else {
                 indexCurrentQuestion++;
                 displayQuestion();
-                Toast.makeText(getContext(), "A new question ahead!", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getContext(), "A new question ahead!", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -251,5 +284,69 @@ public class TriviaFragment extends Fragment {
 
                 break;
         }
+    }
+
+    private void manageScore(View view) {
+        Question currentQuestion = questions.get(indexCurrentQuestion);
+
+        switch (currentQuestion.getType()) {
+            case Question.TYPE_RADIO:
+                int selectedRbID = rgOptions.getCheckedRadioButtonId();
+                RadioButton selectedRb = view.findViewById(selectedRbID);
+                if (selectedRb.getText().equals(currentQuestion.getCorrectAnswer())) {
+                    score += 4;
+                } else if (score > 0) {
+                    score -= 1;
+                }
+                break;
+
+            case Question.TYPE_CHECKBOX:
+                List<String> selectedAnswers = new ArrayList<>();
+
+                if (cbOption1.isSelected()) {
+                    selectedAnswers.add(cbOption1.getText().toString());
+                }
+
+                if (cbOption2.isSelected()) {
+                    selectedAnswers.add(cbOption2.getText().toString());
+                }
+
+                if (cbOption3.isSelected()) {
+                    selectedAnswers.add(cbOption3.getText().toString());
+                }
+
+                String concatedAnswers = String.join(", ", selectedAnswers);
+
+                if (currentQuestion.getCorrectAnswer().equals(concatedAnswers)) {
+                    score += 8;
+                } else if (score > 0){
+                    score -= 1;
+                }
+                break;
+
+            case Question.TYPE_SPINNER:
+                String selectedAnswer = spnOptions.getSelectedItem().toString();
+                if (selectedAnswer.equals(currentQuestion.getCorrectAnswer())) {
+                    score += 4;
+                } else if (score > 0) {
+                    score -= 1;
+                }
+                break;
+
+            case Question.TYPE_TEXT:
+                String userAnswer = tietOption.getText().toString();
+                if (userAnswer.toLowerCase().equals(currentQuestion.getCorrectAnswer().toLowerCase())) {
+                    score += 12;
+                } else if (score > 0) {
+                    score -= 1;
+                }
+                break;
+        }
+    }
+
+    private ActivityResultCallback<ActivityResult> getCallback() {
+        return result -> {
+
+        };
     }
 }

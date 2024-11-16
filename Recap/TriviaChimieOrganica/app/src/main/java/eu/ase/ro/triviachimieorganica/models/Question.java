@@ -1,6 +1,11 @@
 package eu.ase.ro.triviachimieorganica.models;
 
-public class Question {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
+
+public class Question implements Parcelable {
     public static final int TYPE_RADIO = 0;
     public static final int TYPE_CHECKBOX = 1;
     public static final int TYPE_SPINNER = 2;
@@ -84,4 +89,37 @@ public class Question {
                 ", correctAnswer='" + correctAnswer + '\'' +
                 '}';
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel dest, int flags) {
+        dest.writeString(this.question);
+        dest.writeString(this.correctAnswer);
+    }
+
+    protected Question(Parcel in) {
+        question = in.readString();
+        correctAnswer = in.readString();
+
+        option1 = "";
+        option2 = "";
+        option3 = "";
+        type = -1;
+    }
+
+    public static final Creator<Question> CREATOR = new Creator<Question>() {
+        @Override
+        public Question createFromParcel(Parcel in) {
+            return new Question(in);
+        }
+
+        @Override
+        public Question[] newArray(int size) {
+            return new Question[size];
+        }
+    };
 }
