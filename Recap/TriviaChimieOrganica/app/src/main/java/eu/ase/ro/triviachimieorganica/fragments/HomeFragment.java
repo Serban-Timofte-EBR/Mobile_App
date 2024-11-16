@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.android.material.navigation.NavigationView;
+
 import eu.ase.ro.triviachimieorganica.R;
 
 
@@ -36,9 +38,22 @@ public class HomeFragment extends Fragment {
         btnInfo = view.findViewById(R.id.timofte_serban_home_btn_info);
 
         btnStartTrivia.setOnClickListener(v -> {
-            Toast.makeText(getContext(), "Start Trivia", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Starting Trivia...", Toast.LENGTH_SHORT).show();
+            startTrivia();
         });
 
         return view;
+    }
+
+    private void startTrivia() {
+        TriviaFragment trivia = new TriviaFragment();
+
+        getActivity().getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.timofte_serban_main_fl, trivia)
+                .commit();
+
+        NavigationView navigationView = getActivity().findViewById(R.id.nav_view);
+        navigationView.setCheckedItem(R.id.timofte_serban_nav_trivia);
     }
 }
