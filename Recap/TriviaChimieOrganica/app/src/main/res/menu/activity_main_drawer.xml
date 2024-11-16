@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/timofte_serban_nav_home"
+            android:icon="@drawable/baseline_home_24"
+            android:title="@string/menu_home" />
+        <item
+            android:id="@+id/timofte_serban_nav_trivia"
+            android:icon="@drawable/baseline_question_mark_24"
+            android:title="@string/nav_start_trivia" />
+        <item
+            android:id="@+id/timofte_serban_nav_history"
+            android:icon="@drawable/baseline_history_24"
+            android:title="History" />
+    </group>
+</menu>

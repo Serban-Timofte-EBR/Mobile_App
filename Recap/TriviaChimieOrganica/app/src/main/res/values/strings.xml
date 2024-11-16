@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">Trivia Chimie Organica</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="nav_start_trivia">Start Trivia</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="home_logo">Logo</string>
+    <string name="home_app_title">Trivia Chimie Organică</string>
+    <string name="home_description">Testează-ți cunoștințele medicale cu Trivia Medicală! Descoperă informații utile și concurează pentru cel mai bun scor.</string>
+    <string name="home_start_trivia">Start Trivia</string>
+    <string name="home_info">Informații</string>
+    <string name="home_footer">© 2024 Trivia Chimie Organică</string>
+    <string name="trivia_insert_the_answer_here">Insert the answer here</string>
+    <string name="trivia_next">Next</string>
+</resources>

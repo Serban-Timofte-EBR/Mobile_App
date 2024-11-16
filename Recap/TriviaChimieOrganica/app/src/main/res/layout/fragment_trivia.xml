@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="@color/background_color">
+
+    <TextView
+        android:id="@+id/timofte_serban_trivia_tv_question"
+
+        style="@style/CustomQuestionTextView"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        android:text="Intrebare"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        android:textAlignment="center"  />
+
+    <RadioGroup
+        android:id="@+id/timofte_serban_trivia_rg_options"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        app:layout_constraintTop_toBottomOf="@id/timofte_serban_trivia_tv_question"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        android:layout_marginTop="16dp"
+
+        android:visibility="gone"
+         >
+        <RadioButton
+            android:id="@+id/timofte_serban_trivia_rb_option1"
+
+            style="@style/CustomRadioButton"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="Opțiunea 1"
+
+            android:checked="true"/>
+
+        <RadioButton
+            android:id="@+id/timofte_serban_trivia_rb_option2"
+
+            style="@style/CustomRadioButton"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="Opțiunea 2" />
+
+        <RadioButton
+            android:id="@+id/timofte_serban_trivia_rb_option3"
+
+            style="@style/CustomRadioButton"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="Opțiunea 3" />
+    </RadioGroup>
+
+    <Spinner
+        android:id="@+id/timofte_serban_trivia_spn_options"
+
+        style="@style/CustomSpinner"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        app:layout_constraintTop_toBottomOf="@id/timofte_serban_trivia_tv_question"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        android:layout_marginTop="16dp"
+
+        android:visibility="gone"
+        />
+
+    <CheckBox
+        android:id="@+id/timofte_serban_trivia_cb_option1"
+
+        style="@style/CustomCheckBox"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        app:layout_constraintTop_toBottomOf="@id/timofte_serban_trivia_tv_question"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        android:layout_marginTop="16dp"
+
+        android:text="Opt 1"
+
+        android:visibility="gone"/>
+
+    <CheckBox
+        android:id="@+id/timofte_serban_trivia_cb_option2"
+
+        style="@style/CustomCheckBox"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        app:layout_constraintTop_toBottomOf="@id/timofte_serban_trivia_cb_option1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        android:layout_marginTop="8dp"
+
+        android:text="Opt 1"
+
+        android:visibility="gone"/>
+
+    <CheckBox
+        android:id="@+id/timofte_serban_trivia_cb_option3"
+
+        style="@style/CustomCheckBox"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        app:layout_constraintTop_toBottomOf="@id/timofte_serban_trivia_cb_option2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        android:layout_marginTop="8dp"
+
+        android:text="Opt 1"
+
+        android:visibility="gone"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/timofte_serban_trivia_til_options"
+
+        style="@style/CustomTextInputLayout"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        app:layout_constraintTop_toBottomOf="@id/timofte_serban_trivia_tv_question"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        android:visibility="gone" >
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/timofte_serban_tiet_option"
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:hint="@string/trivia_insert_the_answer_here"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/timofte_serban_trivia_btn_next"
+
+        style="@style/CustomButton"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        android:layout_marginBottom="48dp"
+
+        android:text="@string/trivia_next" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
