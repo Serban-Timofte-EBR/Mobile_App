@@ -22,6 +22,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.textfield.TextInputEditText;
@@ -32,6 +33,7 @@ import java.util.Date;
 import java.util.List;
 
 import eu.ase.ro.triviachimieorganica.DisplayTriviaResult;
+import eu.ase.ro.triviachimieorganica.MainActivity;
 import eu.ase.ro.triviachimieorganica.R;
 import eu.ase.ro.triviachimieorganica.models.Question;
 import eu.ase.ro.triviachimieorganica.models.Result;
@@ -99,17 +101,15 @@ public class TriviaFragment extends Fragment {
                 Toast.makeText(getContext(), "The result is comming soon on a new page!", Toast.LENGTH_SHORT).show();
 
                 Result result = new Result(new Date(), score);
-                results.add(result);
+                ((MainActivity) getActivity()).addResult(result);
 
                 intent = new Intent(getContext().getApplicationContext(), DisplayTriviaResult.class);
-                Log.i("TriviaFragment", "Scor trimis: " + score);
                 intent.putExtra(TRIVIA_SCORE, score);
                 intent.putParcelableArrayListExtra(TRIVIA_QUESTIONS, (ArrayList<? extends Parcelable>) questions);
                 launcher.launch(intent);
             } else {
                 indexCurrentQuestion++;
                 displayQuestion();
-//                Toast.makeText(getContext(), "A new question ahead!", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -346,7 +346,12 @@ public class TriviaFragment extends Fragment {
 
     private ActivityResultCallback<ActivityResult> getCallback() {
         return result -> {
-
+            if (result.getResultCode() == AppCompatActivity.RESULT_OK) {
+                indexCurrentQuestion = 0;
+                score = 0;
+                loadQuestions();
+                displayQuestion();
+            }
         };
     }
 }

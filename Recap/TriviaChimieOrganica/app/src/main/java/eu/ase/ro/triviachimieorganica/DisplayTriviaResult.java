@@ -73,9 +73,7 @@ public class DisplayTriviaResult extends AppCompatActivity {
         tvScore.setText(getString(R.string.display_score_template, score));
 
         btnBack.setOnClickListener(v -> {
-            Intent intent = new Intent(DisplayTriviaResult.this, MainActivity.class);
-            intent.putExtra(RESET_FRAGMENT, "TriviaFragment");
-            startActivity(intent);
+            setResult(RESULT_OK, intent);
             finish();
         });
     }

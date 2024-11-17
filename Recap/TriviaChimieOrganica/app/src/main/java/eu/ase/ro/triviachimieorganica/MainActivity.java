@@ -2,6 +2,7 @@ package eu.ase.ro.triviachimieorganica;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
@@ -22,15 +23,21 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import eu.ase.ro.triviachimieorganica.databinding.ActivityMainBinding;
 import eu.ase.ro.triviachimieorganica.fragments.HomeFragment;
 import eu.ase.ro.triviachimieorganica.fragments.TriviaFragment;
+import eu.ase.ro.triviachimieorganica.models.Result;
 
 public class MainActivity extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
 
     private Fragment currentFragment;
+
+    private List<Result> results = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,22 +53,6 @@ public class MainActivity extends AppCompatActivity {
             currentFragment = new HomeFragment();
             openFragment();
             navigationView.setCheckedItem(R.id.timofte_serban_nav_home);
-        }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        Intent intent = getIntent();
-        String resetFragment = intent.getStringExtra("RESET_FRAGMENT");
-
-        if (resetFragment != null && resetFragment.equals("TriviaFragment")) {
-            currentFragment = new TriviaFragment();
-            openFragment();
-            navigationView.setCheckedItem(R.id.timofte_serban_nav_trivia);
-
-            getIntent().removeExtra("RESET_FRAGMENT");
         }
     }
 
@@ -100,5 +91,14 @@ public class MainActivity extends AppCompatActivity {
                 .beginTransaction()
                 .replace(R.id.timofte_serban_main_fl, currentFragment)
                 .commit();
+    }
+
+    public void addResult(Result value) {
+        results.add(value);
+        Log.i("MainActivity", results.toString());
+    }
+
+    public List<Result> getResults() {
+        return this.results;
     }
 }
