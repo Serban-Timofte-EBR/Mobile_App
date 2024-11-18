@@ -32,6 +32,8 @@ import eu.ase.ro.triviachimieorganica.fragments.HomeFragment;
 import eu.ase.ro.triviachimieorganica.fragments.TriviaFragment;
 import eu.ase.ro.triviachimieorganica.models.Result;
 
+// Link Intregistrare:
+// https://drive.google.com/file/d/1Fw4obNgyAzrvNKOo1mRyJ5x6y_BIW5Bd/view?usp=sharing
 public class MainActivity extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;

@@ -218,9 +218,9 @@ public class TriviaFragment extends Fragment {
 
     private void displayQuestion() {
         if (questions == null || questions.size() == 0) {
-            Toast.makeText(getContext(), "NO QUESTION", Toast.LENGTH_SHORT).show();
             return;
         }
+
         Question currentQuestion = questions.get(indexCurrentQuestion);
 
         tvQuestion.setText(currentQuestion.getQuestion());

@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">Magazin Huse</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="add_material">Material</string>
+    <string name="add_lungime">Lungime</string>
+    <string name="add_alege_modelul_de_telefon">Alege modelul de telefon</string>
+    <string name="add_save">Save</string>
+    <string name="add_title_adauga_o_husa">Adauga o husa</string>
+    <string name="nav_stoc">Stoc</string>
+
+    <string-array name="add_model">
+        <item>Apple</item>
+        <item>Samsung</item>
+        <item>Google</item>
+    </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="stoc_stocul_disponibil">Stocul disponibil</string>
+</resources>

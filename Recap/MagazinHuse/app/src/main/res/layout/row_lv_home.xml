@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:id="@+id/timofte_serban_iv_material"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/timofte_serbam_tv_material"
+
+        android:layout_margin="8dp"
+
+        android:src="@drawable/baseline_iron_24"
+        />
+
+    <TextView
+        android:id="@+id/timofte_serbam_tv_material"
+
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@id/timofte_serban_iv_material"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        android:layout_margin="8dp"
+
+        android:textAlignment="center"
+        android:text="Material" />
+
+    <ImageView
+        android:id="@+id/timofte_serban_iv_lungime"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        app:layout_constraintTop_toBottomOf="@id/timofte_serban_iv_material"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/timofte_serbam_tv_lungime"
+
+        android:layout_margin="8dp"
+
+        android:src="@drawable/baseline_photo_size_select_small_24"
+        />
+
+    <TextView
+        android:id="@+id/timofte_serbam_tv_lungime"
+
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+
+        app:layout_constraintTop_toBottomOf="@id/timofte_serban_iv_material"
+        app:layout_constraintStart_toEndOf="@id/timofte_serban_iv_lungime"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        android:layout_margin="8dp"
+
+        android:textAlignment="center"
+        android:text="Material" />
+
+    <ImageView
+        android:id="@+id/timofte_serban_iv_model"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        app:layout_constraintTop_toBottomOf="@id/timofte_serban_iv_lungime"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/timofte_serbam_tv_model"
+
+        android:layout_margin="8dp"
+
+        android:src="@drawable/baseline_phone_iphone_24"
+        />
+
+    <TextView
+        android:id="@+id/timofte_serbam_tv_model"
+
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+
+        app:layout_constraintTop_toBottomOf="@id/timofte_serban_iv_lungime"
+        app:layout_constraintStart_toEndOf="@id/timofte_serban_iv_model"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        android:layout_margin="8dp"
+
+        android:textAlignment="center"
+        android:text="Material" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
