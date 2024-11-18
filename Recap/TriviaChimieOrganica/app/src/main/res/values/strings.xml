@@ -22,4 +22,5 @@
     <string name="trivia_insert_the_answer_here">Insert the answer here</string>
     <string name="trivia_next">Next</string>
     <string name="display_score_template">Scor: %d</string>
+    <string name="home_how_to_collect_points">How to collect points</string>
 </resources>

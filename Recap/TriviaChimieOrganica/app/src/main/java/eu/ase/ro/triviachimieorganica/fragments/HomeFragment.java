@@ -35,7 +35,6 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         btnStartTrivia = view.findViewById(R.id.timofte_serban_home_btn_start_trivia);
-        btnInfo = view.findViewById(R.id.timofte_serban_home_btn_info);
 
         btnStartTrivia.setOnClickListener(v -> {
             Toast.makeText(getContext(), "Starting Trivia...", Toast.LENGTH_SHORT).show();

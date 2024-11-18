@@ -2,6 +2,8 @@ package eu.ase.ro.triviachimieorganica.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -28,19 +30,29 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import eu.ase.ro.triviachimieorganica.DisplayTriviaResult;
 import eu.ase.ro.triviachimieorganica.MainActivity;
 import eu.ase.ro.triviachimieorganica.R;
 import eu.ase.ro.triviachimieorganica.models.Question;
 import eu.ase.ro.triviachimieorganica.models.Result;
+import eu.ase.ro.triviachimieorganica.network.HttpManager;
 
 public class TriviaFragment extends Fragment {
     public static final String TRIVIA_SCORE = "trivia_score";
     public static final String TRIVIA_QUESTIONS = "trivia_questions";
+
+    private final String URL = "https://api.npoint.io/cc5a9c7874a009746d52";
 
     private List<Question> questions = new ArrayList<>();
     private int indexCurrentQuestion = 0;
@@ -69,6 +81,9 @@ public class TriviaFragment extends Fragment {
 
     private List<Result> results = new ArrayList<>();
 
+    private ExecutorService executor = Executors.newCachedThreadPool();
+    private Handler handler = new Handler(Looper.getMainLooper());
+
     public TriviaFragment() {
         // Required empty public constructor
     }
@@ -80,8 +95,6 @@ public class TriviaFragment extends Fragment {
         launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), getCallback());
 
         loadQuestions();
-        Log.i("TriviaFragment", questions.toString());
-        Log.i("TriviaFragment", String.valueOf(questions.size()));
     }
 
     @Nullable
@@ -95,6 +108,10 @@ public class TriviaFragment extends Fragment {
         Log.i("TriviaFragment", results.toString());
 
         btnNext.setOnClickListener(v -> {
+            if (!isAnswerSelected()) {
+                Toast.makeText(getContext(), "Select an answer before moving forward!", Toast.LENGTH_SHORT).show();
+                return;
+            }
             manageScore(view);
 
             if(indexCurrentQuestion == questions.size() - 1) {
@@ -116,78 +133,68 @@ public class TriviaFragment extends Fragment {
         return view;
     }
 
+    private boolean isAnswerSelected() {
+        Question currentQuestion = questions.get(indexCurrentQuestion);
+
+        switch (currentQuestion.getType()) {
+            case Question.TYPE_RADIO:
+                return rgOptions.getCheckedRadioButtonId() != -1;
+
+            case Question.TYPE_CHECKBOX:
+                return cbOption1.isChecked() || cbOption2.isChecked() || cbOption3.isChecked();
+
+            case Question.TYPE_SPINNER:
+                return spnOptions.getSelectedItemPosition() != -1;
+
+            case Question.TYPE_TEXT:
+                String userAnswer = tietOption.getText() != null ? tietOption.getText().toString() : "";
+                return !userAnswer.trim().isEmpty();
+
+            default:
+                return false;
+        }
+    }
+
     private void loadQuestions() {
-        questions = new ArrayList<>();
+        executor.execute(() -> {
+            HttpManager manager = new HttpManager(URL);
+            String result = manager.getCall();
 
-        questions.add(new Question("Care este formula structurală a metanului?",
-                "CH4",
-                "C2H6",
-                "C3H8",
-                Question.TYPE_RADIO,
-                "CH4"));
+            if (result != null) {
+                List<Question> parsedQuestions = parseResponse(result);
+                handler.post(() -> {
+                    questions.clear();
+                    questions.addAll(parsedQuestions);
+                    indexCurrentQuestion = 0;
+                    score = 0;
+                    displayQuestion();
+                });
+            }
+        });
+    }
 
-        questions.add(new Question("Ce element este esențial în chimia organică?",
-                "Oxigen",
-                "Carbon",
-                "Hidrogen",
-                Question.TYPE_RADIO,
-                "Carbon"));
+    private List<Question> parseResponse(String result) {
+        try {
+            List<Question> parsedQuestions = new ArrayList<>();
+            JSONArray jsonArray = new JSONArray(result);
 
-        questions.add(new Question("Selectați toți compușii organici:",
-                "CH4",
-                "H2O",
-                "C6H12O6",
-                Question.TYPE_CHECKBOX,
-                "CH4,C6H12O6"));
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
 
-        questions.add(new Question("Care dintre următoarele sunt hidrocarburi?",
-                "Etan",
-                "Metan",
-                "Dioxid de carbon",
-                Question.TYPE_CHECKBOX,
-                "Etan,Metan"));
+                String question = jsonObject.getString("question");
+                String option1 = jsonObject.getString("option1");
+                String option2 = jsonObject.getString("option2");
+                String option3 = jsonObject.getString("option3");
+                int type = jsonObject.getInt("type");
+                String correctAnswer = jsonObject.getString("correctAnswer");
 
-        questions.add(new Question("Ce tip de legătură există în alcani?",
-                "Simplă",
-                "Dublă",
-                "Triplă",
-                Question.TYPE_SPINNER,
-                "Simplă" ));
+                parsedQuestions.add(new Question(question, option1, option2, option3, type, correctAnswer));
+            }
 
-        questions.add(new Question("Care este cel mai simplu alcan?",
-                "Etan",
-                "Metan",
-                "Propan",
-                Question.TYPE_SPINNER,
-                "Metan"));
-
-        questions.add(new Question("Scrieți formula moleculară a etanolului:",
-                null,
-                null,
-                null,
-                Question.TYPE_TEXT,
-                "C2H6O"));
-
-        questions.add(new Question("Care este grupa funcțională a alcoolilor?",
-                null,
-                null,
-                null,
-                Question.TYPE_TEXT,
-                "OH"));
-
-        questions.add(new Question("Ce compus este utilizat drept combustibil organic?",
-                "Metan",
-                "Etanol",
-                "Oxigen",
-                Question.TYPE_RADIO,
-                "Metan"));
-
-        questions.add(new Question("Care este produsul principal al fotosintezei?",
-                "Glucoză",
-                "Oxigen",
-                "Apă",
-                Question.TYPE_SPINNER,
-                "Glucoză"));
+            return parsedQuestions;
+        } catch (JSONException e) {
+            return null;
+        }
     }
 
     private void initComponent(View view) {
@@ -210,6 +217,10 @@ public class TriviaFragment extends Fragment {
     }
 
     private void displayQuestion() {
+        if (questions == null || questions.size() == 0) {
+            Toast.makeText(getContext(), "NO QUESTION", Toast.LENGTH_SHORT).show();
+            return;
+        }
         Question currentQuestion = questions.get(indexCurrentQuestion);
 
         tvQuestion.setText(currentQuestion.getQuestion());

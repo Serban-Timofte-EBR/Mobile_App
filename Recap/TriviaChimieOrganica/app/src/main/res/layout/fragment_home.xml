@@ -102,28 +102,58 @@
 
         android:padding="12dp" />
 
-    <Button
-        android:id="@+id/timofte_serban_home_btn_info"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/timofte_serban_home_cv_scoring_logic"
 
-        style="@style/CustomButton"
+        style="@style/CardContainer"
 
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+
+        app:cardCornerRadius="8dp"
+        app:cardElevation="4dp"
 
         app:layout_constraintTop_toBottomOf="@id/timofte_serban_home_btn_start_trivia"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
-        android:backgroundTint="@color/secondary_button_color"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
 
-        android:textColor="@color/button_text_color"
-        android:text="@string/home_info"
-        android:textStyle="bold"
+            <TextView
+                android:id="@+id/timofte_serban_home_cv_title"
 
-        android:padding="12dp" />
+                style="@style/CardTitleText"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:text="@string/home_how_to_collect_points"
+                android:textSize="18sp"
+                android:textColor="@color/primary_text_color"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/timofte_serban_home_cv_description"
+
+                style="@style/CardDescriptionText"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+
+                android:text="• Correct Answer: +4 points\n• Wrong Answer: -1 point\n• Check Boxes Right Answer: +8 points\n• Text Right Answer: +12 points"
+                android:textSize="14sp"
+                android:textColor="@color/secondary_text_color" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
 
     <TextView
         android:id="@+id/timofte_serban_home_tv_footer"

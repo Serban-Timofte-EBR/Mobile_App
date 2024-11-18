@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import eu.ase.ro.triviachimieorganica.databinding.ActivityMainBinding;
+import eu.ase.ro.triviachimieorganica.fragments.HistoryFragment;
 import eu.ase.ro.triviachimieorganica.fragments.HomeFragment;
 import eu.ase.ro.triviachimieorganica.fragments.TriviaFragment;
 import eu.ase.ro.triviachimieorganica.models.Result;
@@ -78,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
                     currentFragment = new TriviaFragment();
                 } else if (item.getItemId() == R.id.timofte_serban_nav_history) {
                     Toast.makeText(MainActivity.this, "History", Toast.LENGTH_SHORT).show();
+                    currentFragment = HistoryFragment.getInstance(results);
                 }
                 openFragment();
                 drawerLayout.closeDrawer(GravityCompat.START);
@@ -95,7 +97,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void addResult(Result value) {
         results.add(value);
-        Log.i("MainActivity", results.toString());
     }
 
     public List<Result> getResults() {
