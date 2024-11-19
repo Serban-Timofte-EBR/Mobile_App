@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/timofte_serban_option_add_card"
+        android:orderInCategory="100"
+        android:title="@string/option_add_car"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/timofte_serban_option_see_prices"
+        android:orderInCategory="100"
+        android:title="@string/option_get_price_list"
+        app:showAsAction="never" />
+</menu>
