@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#ffbfad"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:id="@+id/timofte_serban_row_iv_name"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/timofte_serban_tow_tv_age"
+
+        android:layout_margin="8dp"
+
+        android:src="@drawable/baseline_drive_file_rename_outline_24" />
+
+    <TextView
+        android:id="@+id/timofte_serban_tow_tv_name"
+
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@id/timofte_serban_row_iv_name"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        android:layout_margin="8dp"
+
+        android:text="Name"
+        android:textAlignment="center" />
+
+    <ImageView
+        android:id="@+id/timofte_serban_row_iv_age"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        app:layout_constraintTop_toBottomOf="@id/timofte_serban_row_iv_name"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/timofte_serban_tow_tv_name"
+
+        android:layout_margin="8dp"
+
+        android:src="@drawable/baseline_cake_24" />
+
+    <TextView
+        android:id="@+id/timofte_serban_tow_tv_age"
+
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+
+        app:layout_constraintTop_toBottomOf="@id/timofte_serban_row_iv_name"
+        app:layout_constraintStart_toEndOf="@id/timofte_serban_row_iv_age"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        android:layout_margin="8dp"
+
+        android:text="Age"
+        android:textAlignment="center" />
+
+    <ImageView
+        android:id="@+id/timofte_serban_row_iv_faculty"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        app:layout_constraintTop_toBottomOf="@id/timofte_serban_row_iv_age"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/timofte_serban_tow_tv_faculty"
+
+        android:layout_margin="8dp"
+
+        android:src="@drawable/baseline_account_balance_24" />
+
+    <TextView
+        android:id="@+id/timofte_serban_tow_tv_faculty"
+
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+
+        app:layout_constraintTop_toBottomOf="@id/timofte_serban_row_iv_age"
+        app:layout_constraintStart_toEndOf="@id/timofte_serban_row_iv_faculty"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        android:layout_margin="8dp"
+
+        android:text="Faculty"
+        android:textAlignment="center" />
+
+    <ImageView
+        android:id="@+id/timofte_serban_row_iv_frequency"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        app:layout_constraintTop_toBottomOf="@id/timofte_serban_row_iv_faculty"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/timofte_serban_tow_tv_frequency"
+
+        android:layout_margin="8dp"
+
+        android:src="@drawable/baseline_online_prediction_24" />
+
+    <TextView
+        android:id="@+id/timofte_serban_tow_tv_frequency"
+
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+
+        app:layout_constraintTop_toBottomOf="@id/timofte_serban_row_iv_faculty"
+        app:layout_constraintStart_toEndOf="@id/timofte_serban_row_iv_frequency"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        android:layout_margin="8dp"
+
+        android:text="Zi "
+        android:textAlignment="center" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
