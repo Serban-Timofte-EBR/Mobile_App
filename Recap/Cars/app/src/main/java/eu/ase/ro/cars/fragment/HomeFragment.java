@@ -17,6 +17,7 @@ import java.util.List;
 
 import eu.ase.ro.cars.R;
 import eu.ase.ro.cars.models.Car;
+import eu.ase.ro.cars.models.CarAdapter;
 
 public class HomeFragment extends Fragment {
     public static final String ARGS_CAR_KEY = "args_car_key";
@@ -55,9 +56,10 @@ public class HomeFragment extends Fragment {
 
         if (getContext() != null) {
             lvCars = view.findViewById(R.id.timofte_serban_home_lv);
-            ArrayAdapter<Car> adapter = new ArrayAdapter<>(getContext(),
-                    android.R.layout.simple_list_item_1,
-                    cars);
+            CarAdapter adapter = new CarAdapter(getContext(),
+                    R.layout.row_lv_home,
+                    cars,
+                    getLayoutInflater());
             lvCars.setAdapter(adapter);
         }
         return view;

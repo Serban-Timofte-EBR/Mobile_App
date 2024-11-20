@@ -31,6 +31,7 @@ import java.util.List;
 
 import eu.ase.ro.cars.databinding.ActivityMainBinding;
 import eu.ase.ro.cars.fragment.HomeFragment;
+import eu.ase.ro.cars.fragment.PricesFragment;
 import eu.ase.ro.cars.models.Car;
 
 public class MainActivity extends AppCompatActivity {
@@ -101,7 +102,8 @@ public class MainActivity extends AppCompatActivity {
             intent = new Intent(this, AddCarActivity.class);
             launcher.launch(intent);
         } else if (item.getItemId() == R.id.timofte_serban_option_see_prices) {
-            Toast.makeText(this, "List of prices will be displayed", Toast.LENGTH_SHORT).show();
+            currentFragment = new PricesFragment();
+            openFragment();
         }
         return super.onOptionsItemSelected(item);
     }

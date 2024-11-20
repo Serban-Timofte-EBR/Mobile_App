@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragments.EventFragment">
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="150dp"
+
+        android:id="@+id/timofte_serban_eventFRG_iv"
+
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        android:src="@drawable/baseline_event_24" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:id="@+id/timofte_serban_eventFRG_tv_person"
+
+        app:layout_constraintTop_toBottomOf="@id/timofte_serban_eventFRG_iv"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        android:text="Owner: "
+
+        android:layout_margin="8dp"
+
+        android:textSize="20dp"
+        android:textAlignment="center"
+        android:textColor="@color/black" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:id="@+id/timofte_serban_eventFRG_tv_location"
+
+        app:layout_constraintTop_toBottomOf="@id/timofte_serban_eventFRG_tv_person"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        android:text="Location: "
+
+        android:layout_margin="8dp"
+
+        android:textSize="20dp"
+        android:textAlignment="center"
+        android:textColor="@color/black" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

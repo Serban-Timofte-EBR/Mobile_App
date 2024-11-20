@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddEventActivity">
+
+    <ImageView
+        android:id="@+id/timofte_serban_add_iv"
+
+        android:layout_width="100dp"
+        android:layout_height="150dp"
+
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        android:src="@drawable/baseline_event_note_24" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:id="@+id/timofte_serban_add_til_contactPerson"
+
+        app:layout_constraintTop_toBottomOf="@id/timofte_serban_add_iv"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        android:layout_margin="8dp" >
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/timofte_serban_add_tiet_contactPerson"
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:layout_margin="8dp"
+
+            android:hint="@string/add_contact_persona_name" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:id="@+id/timofte_serban_add_tv_location"
+
+        app:layout_constraintTop_toBottomOf="@id/timofte_serban_add_til_contactPerson"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        android:layout_margin="8dp"
+
+        android:text="@string/add_select_location" />
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:entries="@array/add_locations"
+
+        android:id="@+id/timofte_serban_add_spn_location"
+
+        app:layout_constraintTop_toBottomOf="@id/timofte_serban_add_tv_location"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        android:layout_margin="8dp" />
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:id="@+id/timofte_serban_add_rg_type"
+
+        app:layout_constraintTop_toBottomOf="@id/timofte_serban_add_spn_location"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        android:layout_margin="8dp"
+
+        android:orientation="horizontal"
+        android:weightSum="3"
+        >
+        <RadioButton
+            android:id="@+id/timofte_serban_add_rb_nunta"
+            android:checked="true"
+            android:layout_weight="1"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="@string/add_nunta" />
+        <RadioButton
+            android:id="@+id/timofte_serban_add_rb_majorat"
+            android:layout_weight="1"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="@string/add_majorat" />
+        <RadioButton
+            android:id="@+id/timofte_serban_add_rb_botez"
+            android:layout_weight="1"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="@string/add_botez" />
+    </RadioGroup>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:id="@+id/timofte_serban_add_btn_save"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        android:layout_marginBottom="48dp"
+
+        android:text="@string/add_save" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
