@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">Flip.ro</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="add_save">Save</string>
+    <string name="add_100">100%</string>
+    <string name="add_90">90%</string>
+    <string name="add_80">80%</string>
+    <string name="add_model">Model</string>
+    <string name="add_brand">Brand</string>
+    <string-array name="add_brand_values">
+        <item>Iphone</item>
+        <item>Samsung</item>
+        <item>Google</item>
+    </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="action_import_data">Import data</string>
+    <string name="view_brand_template">Brand: %s</string>
+    <string name="view_model_template">Model: %s</string>
+    <string name="view_battery_template">Battery: %d</string>
+</resources>

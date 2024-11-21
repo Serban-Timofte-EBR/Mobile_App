@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#c2fffd"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:id="@+id/timofte_serban_row_home_iv_brand"
+
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/timofte_serban_row_home_tv_brand"
+
+        android:layout_margin="8dp"
+
+        android:src="@drawable/baseline_branding_watermark_24" />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+
+        android:id="@+id/timofte_serban_row_home_tv_brand"
+
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@id/timofte_serban_row_home_iv_brand"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        android:layout_margin="8dp"
+
+        android:textAlignment="center"
+        android:text="Brand" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:id="@+id/timofte_serban_row_home_iv_model"
+
+        app:layout_constraintTop_toBottomOf="@id/timofte_serban_row_home_iv_brand"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/timofte_serban_row_home_tv_model"
+
+        android:layout_margin="8dp"
+
+        android:src="@drawable/baseline_smartphone_24" />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+
+        android:id="@+id/timofte_serban_row_home_tv_model"
+
+        app:layout_constraintTop_toBottomOf="@id/timofte_serban_row_home_iv_brand"
+        app:layout_constraintStart_toEndOf="@id/timofte_serban_row_home_iv_model"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        android:layout_margin="8dp"
+
+        android:textAlignment="center"
+        android:text="Model" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:id="@+id/timofte_serban_row_home_iv_battery"
+
+        app:layout_constraintTop_toBottomOf="@id/timofte_serban_row_home_iv_model"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/timofte_serban_row_home_tv_battery"
+        app:layout_constraintBottom_toBottomOf="parent"
+
+        android:layout_margin="8dp"
+
+        android:src="@drawable/baseline_battery_unknown_24" />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+
+        android:id="@+id/timofte_serban_row_home_tv_battery"
+
+        app:layout_constraintTop_toBottomOf="@id/timofte_serban_row_home_iv_model"
+        app:layout_constraintStart_toEndOf="@id/timofte_serban_row_home_iv_battery"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+
+        android:layout_margin="8dp"
+
+        android:textAlignment="center"
+        android:text="Battery" />
+</androidx.constraintlayout.widget.ConstraintLayout>
