@@ -37,6 +37,7 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import eu.ase.ro.damapp.database.ExpenseService;
 import eu.ase.ro.damapp.databinding.ActivityMainBinding;
 import eu.ase.ro.damapp.databinding.FragmentAboutBinding;
 import eu.ase.ro.damapp.fragments.AboutFragment;
@@ -66,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
     private final ExecutorService executor = Executors.newCachedThreadPool();
 
     private final AsyncTaskRunner asyncTaskRunner = new AsyncTaskRunner();
+    private ExpenseService expenseService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +90,18 @@ public class MainActivity extends AppCompatActivity {
             openFragment();
             navView.setCheckedItem(R.id.nav_home);
         }
+
+        expenseService = new ExpenseService(getApplicationContext());
+        expenseService.getAll(getAllCalback());
+    }
+
+    private Callback<List<Expense>> getAllCalback() {
+        return result -> {
+            if (result != null) {
+                expenses.addAll(result);
+                notifyAll();
+            }
+        };
     }
 
     private ActivityResultCallback<ActivityResult> getAddExpenseCallback() {
@@ -96,10 +110,19 @@ public class MainActivity extends AppCompatActivity {
                 Expense expense = result.getData()
                         .getParcelableExtra(AddExpenseActivity.EXPENSE_KEY);
                 expenses.add(expense);
-
+                expenseService.insert(expense, insertCallback());
                 //notify adapter
                 extracted();
                 Log.i("MainActivity", "expenses = " + expenses);
+            }
+        };
+    }
+
+    private Callback<Expense> insertCallback() {
+        return result -> {
+            if (result != null) {
+                expenses.add(result);
+                notifyAll();
             }
         };
     }

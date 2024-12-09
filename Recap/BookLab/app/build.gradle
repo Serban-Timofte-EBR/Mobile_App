@@ -3,12 +3,12 @@ plugins {
 }
 
 android {
-    namespace 'eu.ase.ro.damapp'
+    namespace 'eu.ase.ro.library'
     compileSdk 34
 
     defaultConfig {
-        applicationId "eu.ase.ro.damapp"
-        minSdk 28
+        applicationId "eu.ase.ro.library"
+        minSdk 24
         targetSdk 34
         versionCode 1
         versionName "1.0"
@@ -40,11 +40,7 @@ dependencies {
     implementation libs.lifecycle.viewmodel.ktx
     implementation libs.navigation.fragment
     implementation libs.navigation.ui
-    implementation libs.activity
     testImplementation libs.junit
     androidTestImplementation libs.ext.junit
     androidTestImplementation libs.espresso.core
-    implementation libs.room.common
-    implementation libs.room.runtime
-    annotationProcessor libs.room.compiler
 }
