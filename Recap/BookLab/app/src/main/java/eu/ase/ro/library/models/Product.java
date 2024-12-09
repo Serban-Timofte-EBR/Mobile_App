@@ -1,5 +1,11 @@
 package eu.ase.ro.library.models;
 
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
+
+@Entity(tableName = "products")
 public class Product {
     public enum Category {
         ELECTRONICS,
@@ -7,10 +13,21 @@ public class Product {
         FURNITURE
     }
 
+    @PrimaryKey(autoGenerate = true)
+    private long id;
     private Category category;
     private Double price;
+    @ColumnInfo(name = "product_name")
     private String name;
 
+    public Product(long id, Category category, Double price, String name) {
+        this.id = id;
+        this.category = category;
+        this.price = price;
+        this.name = name;
+    }
+
+    @Ignore
     public Product(Category category, Double price, String name) {
         this.category = category;
         this.price = price;
@@ -42,6 +59,14 @@ public class Product {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     @Override

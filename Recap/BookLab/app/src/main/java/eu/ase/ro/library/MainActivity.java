@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -59,6 +60,23 @@ public class MainActivity extends AppCompatActivity {
                 getLayoutInflater());
         lvProducts.setAdapter(adapter);
 
+        lvProducts.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Product selectedProduct = products.get(position);
+                Toast.makeText(getApplicationContext(), "Produsul selectat: " + selectedProduct.toString(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        lvProducts.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                products.remove(position);
+                notifyAdapter();
+                return false;
+            }
+        });
+
         navigationInit();
     }
 
@@ -80,7 +98,6 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "No result from URL", Toast.LENGTH_SHORT).show();
                 } else {
                     products.addAll(parsedList);
-                    Toast.makeText(getApplicationContext(), products.toString(), Toast.LENGTH_SHORT).show();
                     notifyAdapter();
                 }
             });
