@@ -43,4 +43,37 @@ public class ExpenseService {
         };
         asyncTaskRunner.executeAsync(callable, callback);
     }
+
+    public void update(Expense expense, Callback<Expense> callback) {
+        Callable<Expense> callable = new Callable<Expense>() {
+            @Override
+            public Expense call() throws Exception {
+                if (expense.getId() <= 0 ) {
+                    return null;
+                }
+
+                int result = expenseDao.update(expense);
+
+                if (result <= 0) {
+                    return null;
+                }
+
+                return expense;
+            }
+        };
+        asyncTaskRunner.executeAsync(callable, callback);
+    }
+
+    public  void delete(Expense expense, Callback<Boolean> callback) {
+        Callable<Boolean> callable = () -> {
+            if (expense.getId() <= 0) {
+                return false;
+            }
+
+            int count = expenseDao.delete(expense);
+
+            return count == 1;
+        };
+        asyncTaskRunner.executeAsync(callable, callback);
+    }
 }

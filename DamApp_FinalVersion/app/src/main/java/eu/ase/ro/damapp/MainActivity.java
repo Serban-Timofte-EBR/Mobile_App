@@ -99,7 +99,9 @@ public class MainActivity extends AppCompatActivity {
         return result -> {
             if (result != null) {
                 expenses.addAll(result);
-                notifyAll();
+//                notifyAll();
+//                de aici a picat e ceva de la threaduri
+                extracted();
             }
         };
     }
@@ -122,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
         return result -> {
             if (result != null) {
                 expenses.add(result);
-                notifyAll();
+//                notifyAll();
             }
         };
     }
