@@ -2,6 +2,15 @@
 private void configNavigation() {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+
+        // drawerLayout = findViewById(R.id.drawer_layout);
+        // ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        // actionBarDrawerToggle.syncState();
+
+        // + Astea ca variabile de clasa
+        // private DrawerLayout drawerLayout;
+        // private NavigationView navigationView;
     }
 
     @Override
@@ -51,4 +60,43 @@ private void notifyAdapter() {
             labs.addAll(parsedLabs);
             notifyAdapter();
         };
+    }
+
+// Activitatea de adaugare
+ private ActivityResultLauncher<Intent> launcher;
+ private Intent intent;
+
+ @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), getAddLabCallback());
+        configNavigation();
+        initComponent();
+    }
+
+private ActivityResultCallback<ActivityResult> getAddLabCallback() {
+        return result -> {
+            if (result.getResultCode() == RESULT_OK && result.getData() != null) {
+                Lab lab = (Lab) result.getData().getSerializableExtra(AddActivity.KEY_LAB);
+                labs.add(lab);
+                notifyAdapter();
+            }
+        };
+    }
+
+    private void initComponent() {
+        lvLabs = findViewById(R.id.main_lv_labs);
+        LabAdapter adapter = new LabAdapter(getApplicationContext(),
+                R.layout.row_lv_labs,
+                labs,
+                getLayoutInflater());
+        lvLabs.setAdapter(adapter);
+
+        fabAdd = findViewById(R.id.fab);
+        fabAdd.setOnClickListener(v -> {
+            intent = new Intent(getApplicationContext(), AddActivity.class);
+            launcher.launch(intent);
+        });
     }

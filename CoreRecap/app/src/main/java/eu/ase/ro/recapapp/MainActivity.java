@@ -1,5 +1,6 @@
 package eu.ase.ro.recapapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -7,9 +8,14 @@ import android.view.Menu;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.navigation.NavController;
@@ -38,14 +44,29 @@ public class MainActivity extends AppCompatActivity {
 
     List<Lab> labs = new ArrayList<>();
     ListView lvLabs;
+    FloatingActionButton fabAdd;
+
+    private ActivityResultLauncher<Intent> launcher;
+    private Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), getAddLabCallback());
         configNavigation();
         initComponent();
+    }
+
+    private ActivityResultCallback<ActivityResult> getAddLabCallback() {
+        return result -> {
+            if (result.getResultCode() == RESULT_OK && result.getData() != null) {
+                Lab lab = (Lab) result.getData().getSerializableExtra(AddActivity.KEY_LAB);
+                labs.add(lab);
+                notifyAdapter();
+            }
+        };
     }
 
     private void initComponent() {
@@ -55,6 +76,12 @@ public class MainActivity extends AppCompatActivity {
                 labs,
                 getLayoutInflater());
         lvLabs.setAdapter(adapter);
+
+        fabAdd = findViewById(R.id.fab);
+        fabAdd.setOnClickListener(v -> {
+            intent = new Intent(getApplicationContext(), AddActivity.class);
+            launcher.launch(intent);
+        });
     }
 
     private void configNavigation() {

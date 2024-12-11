@@ -1,8 +1,9 @@
 package eu.ase.ro.recapapp.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Lab {
+public class Lab implements Serializable {
     private long id;
     private Date labDate;
     private Integer classNumber;

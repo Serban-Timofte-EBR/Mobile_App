@@ -11,4 +11,13 @@
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
     <string name="option_import_data">Import data</string>
+    <string name="add_lab_name">Lab Name</string>
+    <string name="add_lab_date_dd_mm_yyyy">Lab Date (dd-MM-yyyy)</string>
+    <string name="add_tv_class_number">Class Number</string>
+    <string name="add_save_lab">Save Lab</string>
+    <string-array name="add_spiner_opt">
+        <item>2102</item>
+        <item>2305</item>
+        <item>1832</item>
+    </string-array>
 </resources>
