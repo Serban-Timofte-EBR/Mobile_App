@@ -100,3 +100,21 @@ private ActivityResultCallback<ActivityResult> getAddLabCallback() {
             launcher.launch(intent);
         });
     }
+
+// Lucrul cu baza de date Room
+
+// libs.versions.toml
+    // libraries
+    room-common = { group = "androidx.room", name = "room-common", version.ref = "roomVersion" }
+    room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "roomVersion" }
+    room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "roomVersion" }
+
+    // versions
+    roomVersion = "2.6.1"
+
+// build.gradle (Module: app)
+    // dependencies
+    implementation libs.room.common
+    implementation libs.room.runtime
+    annotationProcessor libs.room.compiler
+

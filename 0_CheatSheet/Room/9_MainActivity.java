@@ -44,8 +44,6 @@ public class MainActivity extends AppCompatActivity {
     private AsyncTaskRunner asyncTaskRunner = new AsyncTaskRunner();
 
     List<Lab> labs = new ArrayList<>();
-    ListView lvLabs;
-    FloatingActionButton fabAdd;
 
     private ActivityResultLauncher<Intent> launcher;
     private Intent intent;

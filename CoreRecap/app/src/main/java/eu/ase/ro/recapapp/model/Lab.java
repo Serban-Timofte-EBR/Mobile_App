@@ -1,11 +1,16 @@
 package eu.ase.ro.recapapp.model;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import java.io.Serializable;
 import java.util.Date;
 
+@Entity(tableName = "labs")
 public class Lab implements Serializable {
+    @PrimaryKey(autoGenerate = true)
     private long id;
-    private Date labDate;
+    private Date labDate;   // we have to add TypeConvertor for this field (check DataConvertor first)
     private Integer classNumber;
     private String labName;
 
