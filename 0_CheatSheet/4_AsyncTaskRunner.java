@@ -13,6 +13,7 @@ public class AsyncTaskRunner {
 
     // Incepe executia pe un thread secundar
     // Prin callable mi se intoarce rezultatul de pe threadul secundarAs
+        // Practic pentru citire de la endpoint, in callable avem HttpManager.call() care imi returneaza stringul de la npoint
     public <R> void executeAsync(Callable<R> callable, Callback<R> callback) {
         executor.execute(() -> {
             try {
