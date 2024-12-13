@@ -14,33 +14,39 @@ import eu.ase.ro.damapp.model.DateConverter;
 import eu.ase.ro.damapp.model.Expense;
 
 public class ExpenseParser {
-    public static List<Expense> fromJSON(String json) {
-        List<Expense> results = new ArrayList<>();
 
+    public static final String DATE = "date";
+    public static final String AMOUNT = "amount";
+    public static final String CATEGORY = "category";
+    public static final String DESCRIPTION = "description";
+
+    public static List<Expense> fromJson(String json) {
         try {
-            JSONArray array = new JSONArray(json);
-
-            for (int i = 0; i < array.length(); i++) {
-                JSONObject object = array.getJSONObject(i);
-                Expense expense = getExpense(object);
-                results.add(expense);
-            }
-
-            return results;
+            return getExpensesFromJson(new JSONArray(json));
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
         return new ArrayList<>();
     }
 
-    private static @NonNull Expense getExpense(JSONObject object) throws JSONException {
-        Date date = DateConverter.toDate(object.getString("date"));
-        Double amount = object.getDouble("amount");
-        String category = object.getString("category");
-        String description = object.getString("description");
+    @NonNull
+    private static List<Expense> getExpensesFromJson(JSONArray array) throws JSONException {
+        List<Expense> results = new ArrayList<>();
+        for (int i = 0; i < array.length(); i++) {
+            JSONObject object = array.getJSONObject(i);
+            Expense expense = getExpenseFromJson(object);
+            results.add(expense);
+        }
+        return results;
+    }
 
-        Expense expense = new Expense(date, amount, category, description);
-        return expense;
+    @NonNull
+    private static Expense getExpenseFromJson(JSONObject object) throws JSONException {
+        Date date = DateConverter.toDate(object.getString(DATE));
+        double amount = object.getDouble(AMOUNT);
+        String category = object.getString(CATEGORY);
+        String description = object.getString(DESCRIPTION);
+
+        return new Expense(date, amount, category, description);
     }
 }

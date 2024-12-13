@@ -5,14 +5,10 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Menu;
 import android.widget.Toast;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-import com.google.android.material.navigation.NavigationView;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
@@ -20,26 +16,22 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import eu.ase.ro.damapp.database.ExpenseService;
-import eu.ase.ro.damapp.databinding.ActivityMainBinding;
-import eu.ase.ro.damapp.databinding.FragmentAboutBinding;
 import eu.ase.ro.damapp.fragments.AboutFragment;
 import eu.ase.ro.damapp.fragments.HomeFragment;
 import eu.ase.ro.damapp.fragments.ProfileFragment;
@@ -51,6 +43,7 @@ import eu.ase.ro.damapp.network.HttpManager;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static final String EDIT_EXPENSE_POSITION = "edit_expense_position";
     private static final String EXPENSES_URL = "https://api.npoint.io/5380854edf409813c032";
 
     private DrawerLayout drawerLayout;
@@ -67,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
     private final ExecutorService executor = Executors.newCachedThreadPool();
 
     private final AsyncTaskRunner asyncTaskRunner = new AsyncTaskRunner();
+
     private ExpenseService expenseService;
 
     @Override
@@ -92,16 +86,14 @@ public class MainActivity extends AppCompatActivity {
         }
 
         expenseService = new ExpenseService(getApplicationContext());
-        expenseService.getAll(getAllCalback());
+        expenseService.getAll(getAllCallback());
     }
 
-    private Callback<List<Expense>> getAllCalback() {
-        return result -> {
-            if (result != null) {
-                expenses.addAll(result);
-//                notifyAll();
-//                de aici a picat e ceva de la threaduri
-                extracted();
+    private Callback<List<Expense>> getAllCallback() {
+        return results -> {
+            if (results != null) {
+                expenses.addAll(results);
+                notifyAdapter();
             }
         };
     }
@@ -109,24 +101,52 @@ public class MainActivity extends AppCompatActivity {
     private ActivityResultCallback<ActivityResult> getAddExpenseCallback() {
         return result -> {
             if (result.getResultCode() == RESULT_OK && result.getData() != null) {
-                Expense expense = result.getData()
-                        .getParcelableExtra(AddExpenseActivity.EXPENSE_KEY);
-                expenses.add(expense);
-                expenseService.insert(expense, insertCallback());
-                //notify adapter
-                extracted();
+                Expense expense = result.getData().getParcelableExtra(AddExpenseActivity.EXPENSE_KEY);
+                if (expense == null) {
+                    return;
+                }
+                int position = result.getData().getIntExtra(EDIT_EXPENSE_POSITION, -1);
+                if (position < 0) {
+                    expenseService.insert(expense, insertCallback());
+                } else {
+                    expenseService.update(expense, updateCallback(position));
+                }
                 Log.i("MainActivity", "expenses = " + expenses);
             }
         };
     }
 
+    private Callback<Expense> updateCallback(int position) {
+        return result -> {
+            if (result == null) {
+                return;
+            }
+
+            expenses.get(position).setDate(result.getDate());
+            expenses.get(position).setAmount(result.getAmount());
+            expenses.get(position).setDescription(result.getDescription());
+            expenses.get(position).setCategory(result.getCategory());
+
+            notifyAdapter();
+        };
+    }
+
     private Callback<Expense> insertCallback() {
         return result -> {
-            if (result != null) {
-                expenses.add(result);
-//                notifyAll();
+            if (result == null) {
+                return;
             }
+
+            expenses.add(result);
+            notifyAdapter();
         };
+    }
+
+    private void notifyAdapter() {
+        //notify adapter
+        if (currentFragment instanceof HomeFragment) {
+            ((HomeFragment) currentFragment).notifyAdapter();
+        }
     }
 
     private View.OnClickListener getAddEvent() {
@@ -223,8 +243,6 @@ public class MainActivity extends AppCompatActivity {
             Callable<String> callable = new HttpManager(EXPENSES_URL);
             Callback<String> callback = getCallbackFromHttpManager();
             asyncTaskRunner.executeAsync(callable, callback);
-
-
         }
         return super.onOptionsItemSelected(item);
     }
@@ -233,9 +251,9 @@ public class MainActivity extends AppCompatActivity {
     private Callback<String> getCallbackFromHttpManager() {
         return result -> {
             Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
-            List<Expense> parsedExpenses = ExpenseParser.fromJSON(result);
+            List<Expense> parsedExpenses = ExpenseParser.fromJson(result);
             expenses.addAll(parsedExpenses);
-            extracted();
+            notifyAdapter();
         };
     }
 
@@ -249,9 +267,28 @@ public class MainActivity extends AppCompatActivity {
         };
     }
 
-    private void extracted() {
-        if (currentFragment instanceof HomeFragment) {
-            ((HomeFragment) currentFragment).notifyAdapter();
-        }
+    public void launchEdit(int position) {
+        Intent intent = new Intent(getApplicationContext(), AddExpenseActivity.class);
+        intent.putExtra(AddExpenseActivity.EXPENSE_KEY, expenses.get(position));
+        intent.putExtra(EDIT_EXPENSE_POSITION, position);
+        launcher.launch(intent);
+    }
+
+    public void removeExpense(int position) {
+        expenseService.delete(expenses.get(position), deleteCallback(position));
+    }
+
+    private Callback<Boolean> deleteCallback(int position) {
+        return result -> {
+            if (!result) {
+                return;
+            }
+
+            Expense removedExpense = expenses.remove(position);
+            Toast.makeText(getApplicationContext(),
+                    getString(R.string.expense_removed, removedExpense.toString()),
+                    Toast.LENGTH_SHORT).show();
+            notifyAdapter();
+        };
     }
 }

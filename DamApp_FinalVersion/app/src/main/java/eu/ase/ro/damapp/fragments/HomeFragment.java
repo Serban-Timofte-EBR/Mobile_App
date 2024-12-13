@@ -1,20 +1,20 @@
 package eu.ase.ro.damapp.fragments;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.widget.AdapterView;
 import android.widget.ListView;
+
+import androidx.fragment.app.Fragment;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import eu.ase.ro.damapp.MainActivity;
 import eu.ase.ro.damapp.R;
 import eu.ase.ro.damapp.model.Expense;
 import eu.ase.ro.damapp.model.ExpenseAdapter;
@@ -74,8 +74,27 @@ public class HomeFragment extends Fragment {
                     getLayoutInflater()
             );
             lvExpenses.setAdapter(adapter);
+            lvExpenses.setOnItemClickListener(getItemClickListener());
+            lvExpenses.setOnItemLongClickListener(getItemLongClickListener());
         }
         return view;
+    }
+
+    private AdapterView.OnItemLongClickListener getItemLongClickListener() {
+        return (parent, view, position, id) -> {
+            if (getActivity() instanceof MainActivity) {
+                ((MainActivity) getActivity()).removeExpense(position);
+            }
+            return true;
+        };
+    }
+
+    private AdapterView.OnItemClickListener getItemClickListener() {
+        return (parent, view, position, id) -> {
+            if (getActivity() instanceof MainActivity) {
+                ((MainActivity) getActivity()).launchEdit(position);
+            }
+        };
     }
 
     public void notifyAdapter() {

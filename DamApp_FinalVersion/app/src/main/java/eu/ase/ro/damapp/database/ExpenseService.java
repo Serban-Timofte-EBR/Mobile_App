@@ -2,7 +2,6 @@ package eu.ase.ro.damapp.database;
 
 import android.content.Context;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.Callable;
 
@@ -11,8 +10,9 @@ import eu.ase.ro.damapp.network.AsyncTaskRunner;
 import eu.ase.ro.damapp.network.Callback;
 
 public class ExpenseService {
+
     private final ExpenseDao expenseDao;
-    private AsyncTaskRunner asyncTaskRunner = new AsyncTaskRunner();
+    private final AsyncTaskRunner asyncTaskRunner = new AsyncTaskRunner();
 
     public ExpenseService(Context context) {
         expenseDao = DatabaseManager.getInstance(context).getExpenseDao();
@@ -24,47 +24,36 @@ public class ExpenseService {
     }
 
     public void insert(Expense expense, Callback<Expense> callback) {
-        Callable<Expense> callable = new Callable<Expense>() {
-            @Override
-            public Expense call() throws Exception {
-                if (expense.getId() > 0) {
-                    return null;
-                }
-
-                long id = expenseDao.insert(expense);
-
-                if (id < 0) {
-                    return null;
-                }
-
-                expense.setId(id);
-                return expense;
+        Callable<Expense> callable = () -> {
+            if (expense.getId() > 0) {
+                return null;
             }
+            long id = expenseDao.insert(expense);
+            if (id < 0) {
+                return null;
+            }
+            expense.setId(id);
+
+            return expense;
         };
+
         asyncTaskRunner.executeAsync(callable, callback);
     }
 
     public void update(Expense expense, Callback<Expense> callback) {
-        Callable<Expense> callable = new Callable<Expense>() {
-            @Override
-            public Expense call() throws Exception {
-                if (expense.getId() <= 0 ) {
-                    return null;
-                }
-
-                int result = expenseDao.update(expense);
-
-                if (result <= 0) {
-                    return null;
-                }
-
-                return expense;
+        Callable<Expense> callable = () -> {
+            if (expense.getId() <= 0) {
+                return null;
             }
+            int count = expenseDao.update(expense);
+
+            return count == 1 ? expense : null;
         };
+
         asyncTaskRunner.executeAsync(callable, callback);
     }
 
-    public  void delete(Expense expense, Callback<Boolean> callback) {
+    public void delete(Expense expense, Callback<Boolean> callback) {
         Callable<Boolean> callable = () -> {
             if (expense.getId() <= 0) {
                 return false;

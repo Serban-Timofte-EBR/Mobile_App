@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -30,6 +31,7 @@ public class AddExpenseActivity extends AppCompatActivity {
     private Button btnSave;
 
     private Intent intent;
+    private Expense expense;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +46,10 @@ public class AddExpenseActivity extends AppCompatActivity {
 
         initComponents();
         intent = getIntent();
+        if (intent.hasExtra(EXPENSE_KEY)) {
+            expense = intent.getParcelableExtra(EXPENSE_KEY);
+            loadData();
+        }
     }
 
     private void initComponents() {
@@ -58,7 +64,7 @@ public class AddExpenseActivity extends AppCompatActivity {
     private View.OnClickListener getSaveEvent() {
         return v -> {
             if (isValid()) {
-                Expense expense = buildFromView();
+                buildFromView();
                 intent.putExtra(EXPENSE_KEY, expense);
                 setResult(RESULT_OK, intent);
                 finish();
@@ -66,13 +72,33 @@ public class AddExpenseActivity extends AppCompatActivity {
         };
     }
 
-    private Expense buildFromView() {
-        Date date = DateConverter.toDate(tietDate.getText().toString());
+    private void loadData() {
+        tietDescription.setText(expense.getDescription());
+        tietAmount.setText(String.valueOf(expense.getAmount()));
+        tietDate.setText(DateConverter.fromDate(expense.getDate()));
+        SpinnerAdapter adapter = spnCategory.getAdapter();
+        for (int i = 0; i < adapter.getCount(); i++) {
+            if (adapter.getItem(i).equals(expense.getCategory())) {
+                spnCategory.setSelection(i);
+                break;
+            }
+        }
+    }
+
+
+    private void buildFromView() {
         double amount = Double.parseDouble(tietAmount.getText().toString());
         String category = (String) spnCategory.getSelectedItem();
         String description = tietDescription.getText().toString();
-
-        return new Expense(date, amount, category, description);
+        Date date = DateConverter.toDate(tietDate.getText().toString());
+        if (expense == null) {
+            expense = new Expense(date, amount, category, description);
+            return;
+        }
+        expense.setAmount(amount);
+        expense.setCategory(category);
+        expense.setDescription(description);
+        expense.setDate(date);
     }
 
     private boolean isValid() {

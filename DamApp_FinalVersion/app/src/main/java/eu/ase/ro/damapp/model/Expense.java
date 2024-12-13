@@ -17,6 +17,7 @@ public class Expense implements Parcelable {
 
     @PrimaryKey(autoGenerate = true)
     private long id;
+    @ColumnInfo(name = "buy_date")
     private Date date;
     private double amount;
     private String category;
@@ -45,14 +46,6 @@ public class Expense implements Parcelable {
         amount = parcel.readDouble();
         category = parcel.readString();
         description = parcel.readString();
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public Date getDate() {
@@ -116,5 +109,13 @@ public class Expense implements Parcelable {
         parcel.writeDouble(amount);
         parcel.writeString(category);
         parcel.writeString(description);
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 }

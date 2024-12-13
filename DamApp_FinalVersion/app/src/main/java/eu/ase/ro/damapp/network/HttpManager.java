@@ -8,8 +8,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.Callable;
 
 public class HttpManager implements Callable<String> {
@@ -28,8 +26,7 @@ public class HttpManager implements Callable<String> {
     @Override
     public String call() {
         try {
-            String res = getContentFromURL();
-           return res;
+            return getContentFromURL();
         } catch (IOException e) {
             e.printStackTrace();
         } finally {

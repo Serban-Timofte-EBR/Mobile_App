@@ -12,14 +12,15 @@ import eu.ase.ro.damapp.model.Expense;
 
 @Dao
 public interface ExpenseDao {
-    @Query("SELECT * FROM expenses")
+
+    @Query("select * from expenses")
     List<Expense> getAll();
 
-    @Insert()
+    @Insert
     long insert(Expense expense);
 
     @Update
-    int update(Expense expense);    // int din return inseamna cate randuri au fost afectate
+    int update(Expense expense);
 
     @Delete
     int delete(Expense expense);

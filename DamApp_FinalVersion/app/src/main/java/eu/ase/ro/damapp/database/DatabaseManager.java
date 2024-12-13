@@ -10,18 +10,22 @@ import androidx.room.TypeConverters;
 import eu.ase.ro.damapp.model.DateConverter;
 import eu.ase.ro.damapp.model.Expense;
 
-@Database(entities = {Expense.class}, version =  1, exportSchema = false)
+@Database(entities = {Expense.class}, version = 1, exportSchema = false)
 @TypeConverters({DateConverter.class})
 public abstract class DatabaseManager extends RoomDatabase {
-    private static DatabaseManager databaseManager;
+
+    private static DatabaseManager connection;
 
     public static DatabaseManager getInstance(Context context) {
-        if (databaseManager != null) {
-            return databaseManager;
+        if (connection != null) {
+            return connection;
         }
 
-        databaseManager = Room.databaseBuilder(context, DatabaseManager.class, "dam_db").fallbackToDestructiveMigration().build();
-        return databaseManager;
+        connection = Room.databaseBuilder(context, DatabaseManager.class, "dam_db")
+                .fallbackToDestructiveMigration()
+                .build();
+
+        return connection;
     }
 
     public abstract ExpenseDao getExpenseDao();
