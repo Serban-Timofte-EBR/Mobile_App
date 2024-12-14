@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">1_Session</string>
+    <string name="main_get_data">Get Data</string>
+    <string name="btn_see_profile">See Profile</string>
+    <string name="profile_btn_save">Save</string>
+    <string name="profile_til_email">Email</string>
+    <string name="profile_til_username">Username</string>
+    <string name="profile_til_name">Name</string>
+</resources>
