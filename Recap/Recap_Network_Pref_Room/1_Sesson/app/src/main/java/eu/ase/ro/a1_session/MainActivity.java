@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResult;
@@ -78,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
     private Callback<List<Session>> getAllCallback() {
         return result -> {
             sessions.addAll(result);
+            setSpnValues();
             notifyAdapeter();
         };
     }
@@ -97,6 +99,8 @@ public class MainActivity extends AppCompatActivity {
         return result -> {
             if (result.getId() > 0) {
                 sessions.add(result);
+                notifyAdapeter();
+                setSpnValues();
             }
         };
     }
@@ -185,9 +189,15 @@ public class MainActivity extends AppCompatActivity {
 
     private Callback<String> getCallbackFromHttpManager() {
         return result -> {
-            sessions.addAll(SessionParser.fromJSON(result));
-            notifyAdapeter();
-            setSpnValues();
+            List<Session> httpSessions = SessionParser.fromJSON(result);
+
+            for (Session session : httpSessions) {
+                if (!sessions.contains(session)) {
+                    sessionService.insert(session, getInsertCallback());
+                } else {
+                    Toast.makeText(getApplicationContext(), "Some sessions are already in the database", Toast.LENGTH_SHORT).show();
+                }
+            }
         };
     }
 

@@ -5,6 +5,7 @@ import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 
 @Entity(tableName = "sessions")
 public class Session implements Serializable {
@@ -94,5 +95,18 @@ public class Session implements Serializable {
                 ", duration=" + duration +
                 ", room='" + room + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Session session = (Session) o;
+        return duration == session.duration && Objects.equals(title, session.title) && Objects.equals(date, session.date) && Objects.equals(speaker, session.speaker) && Objects.equals(room, session.room);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(title, date, speaker, duration, room);
     }
 }
