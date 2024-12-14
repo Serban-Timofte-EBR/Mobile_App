@@ -8,34 +8,36 @@
     tools:context=".MainActivity">
 
     <TextView
+        android:id="@+id/main_tv_filer"
         android:layout_width="wrap_content"
+
         android:layout_height="wrap_content"
 
-        android:id="@+id/main_tv_filer"
-
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/main_spn_filter"
-
         android:layout_margin="10dp"
-
         android:text="Filter data"
         android:textColor="@color/black"
-        android:textSize="15dp" />
+
+        android:textSize="15dp"
+
+        app:layout_constraintBottom_toTopOf="@id/main_spn_filter"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="TextSizeCheck" />
 
 
     <Spinner
+        android:id="@+id/main_spn_filter"
         android:layout_width="match_parent"
+
         android:layout_height="wrap_content"
 
-        android:id="@+id/main_spn_filter"
-
-        app:layout_constraintTop_toBottomOf="@id/main_tv_filer"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="8dp"
+        android:minHeight="48dp"
         app:layout_constraintBottom_toTopOf="@id/main_lv_sessions"
+        app:layout_constraintEnd_toEndOf="parent"
 
-        android:layout_margin="8dp"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/main_tv_filer" />
     <ListView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -63,11 +65,12 @@
         android:padding="8dp">
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/main_fab_add"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:id="@+id/main_fab_add"
             android:layout_marginEnd="8dp"
+            android:layout_weight="2"
+            android:contentDescription="@string/add_duration_minutes"
             android:src="@drawable/baseline_add_24" />
 
         <Button

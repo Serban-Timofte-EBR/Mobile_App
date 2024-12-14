@@ -1,8 +1,14 @@
 package eu.ase.ro.a1_session.model;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+import java.io.Serializable;
 import java.util.Date;
 
-public class Session {
+@Entity(tableName = "sessions")
+public class Session implements Serializable {
+    @PrimaryKey(autoGenerate = true)
     private long id;
     private String title;
     private Date date;

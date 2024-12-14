@@ -6,4 +6,22 @@
     <string name="profile_til_email">Email</string>
     <string name="profile_til_username">Username</string>
     <string name="profile_til_name">Name</string>
+    <string name="add_session_title">Session Title</string>
+    <string name="add_date_yyyy_mm_dd_hh_mm">Date (yyyy-MM-dd HH:mm)</string>
+    <string name="add_speaker">Speaker</string>
+    <string name="add_duration_minutes">Duration (minutes)</string>
+    <string name="add_save_session">Save Session</string>
+    <string-array name="add_room_array">
+        <item>Room A1</item>
+        <item>Room B2</item>
+        <item>Room C3</item>
+        <item>Room D4</item>
+        <item>Room E5</item>
+    </string-array>
+    <string name="error_title_required">Titlul este obligatoriu!</string>
+    <string name="error_invalid_date">Formatul datei este invalid! (yyyy-MM-dd HH:mm)</string>
+    <string name="error_speaker_required">Numele speakerului este obligatoriu!</string>
+    <string name="error_invalid_duration">Durata trebuie să fie un număr valid!</string>
+    <string name="error_room_required">Selectați o sală!</string>
+    <string name="spinner_default">Selectați o sală</string>
 </resources>

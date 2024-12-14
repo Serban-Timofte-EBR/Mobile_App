@@ -14,6 +14,10 @@ import android.widget.ListView;
 import android.widget.Spinner;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -29,6 +33,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.Callable;
 
+import eu.ase.ro.a1_session.database.SessionService;
 import eu.ase.ro.a1_session.model.Session;
 import eu.ase.ro.a1_session.network.AsyncTaskRunner;
 import eu.ase.ro.a1_session.network.Callback;
@@ -48,6 +53,10 @@ public class MainActivity extends AppCompatActivity {
     private AsyncTaskRunner asyncTaskRunner = new AsyncTaskRunner();
     private List<Session> sessions = new ArrayList<>();
 
+    private ActivityResultLauncher<Intent> launcher;
+
+    private SessionService sessionService;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,7 +68,37 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
+        launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), getAddSessionCallback());
         initComponent();
+
+        sessionService = new SessionService(getApplicationContext());
+        sessionService.getAll(getAllCallback());
+    }
+
+    private Callback<List<Session>> getAllCallback() {
+        return result -> {
+            sessions.addAll(result);
+            notifyAdapeter();
+        };
+    }
+
+    private ActivityResultCallback<ActivityResult> getAddSessionCallback() {
+        return result -> {
+            if (result.getResultCode() == RESULT_OK && result.getData() != null) {
+                Session addedSession = (Session) result.getData().getSerializableExtra(AddSessionActivity.ADD_SESSION_KEY);
+                setSpnValues();
+                notifyAdapeter();
+                sessionService.insert(addedSession, getInsertCallback());
+            }
+        };
+    }
+
+    private Callback<Session> getInsertCallback() {
+        return result -> {
+            if (result.getId() > 0) {
+                sessions.add(result);
+            }
+        };
     }
 
     private void initComponent() {
@@ -67,6 +106,7 @@ public class MainActivity extends AppCompatActivity {
         lvSessions = findViewById(R.id.main_lv_sessions);
         btnGetData = findViewById(R.id.main_btn_getData);
         btnProfile = findViewById(R.id.main_btn_profile);
+        fabAddSession = findViewById(R.id.main_fab_add);
 
         spnFilter.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -85,6 +125,14 @@ public class MainActivity extends AppCompatActivity {
 
         btnGetData.setOnClickListener(getNPointSessions());
         btnProfile.setOnClickListener(startProfileAcitivity());
+        fabAddSession.setOnClickListener(addSession());
+    }
+
+    private View.OnClickListener addSession() {
+        return v -> {
+            Intent intent = new Intent(getApplicationContext(), AddSessionActivity.class);
+            launcher.launch(intent);
+        };
     }
 
     private View.OnClickListener startProfileAcitivity() {
