@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">2_Exam</string>
+    <string name="main_get_data">Get Data</string>
+    <string name="main_user_info">User Info</string>
+    <string name="user_name">Name</string>
+    <string name="add_save">Save</string>
+    <string name="main_hello_user_template">Hello, %s</string>
+    <string name="label_exam_date">Date</string>
+    <string name="label_exam_course">Course</string>
+    <string name="label_exam_classroom">Classroom</string>
+    <string name="label_exam_supervisor">Supervisor</string>
+    <string name="button_save_exam">Save Exam</string>
+    <string-array name="course_array">
+        <item>DAM</item>
+        <item>CTS</item>
+        <item>POO</item>
+        <item>TW</item>
+        <item>SDD</item>
+    </string-array>
+</resources>
