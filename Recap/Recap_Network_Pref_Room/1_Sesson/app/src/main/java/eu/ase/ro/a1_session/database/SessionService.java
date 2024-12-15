@@ -1,6 +1,7 @@
 package eu.ase.ro.a1_session.database;
 
 import android.content.Context;
+import android.util.Log;
 
 import java.util.List;
 import java.util.concurrent.Callable;
@@ -33,9 +34,11 @@ public class SessionService {
                 }
 
                 long id = sessionDao.insert(session);
+                Log.i("Room", "Insert Session - ID: " + id);
 
                 if (id > 0) {
                     session.setId(id);
+                    Log.i("Room", "Insert Session - Session INSERT ID: " + session.getId());
                     return session;
                 }
 
@@ -49,6 +52,7 @@ public class SessionService {
         Callable<Session> callable = new Callable<Session>() {
             @Override
             public Session call() throws Exception {
+                Log.i("Room", "Update Session - Update ID: " + session.getId());
                 if (session.getId() < 0) {
                     return null;
                 }

@@ -107,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
     private Callback<Session> getUpdateCallback() {
         return result -> {
             if (result != null) {
+                sessions.clear();
                 sessionService.getAll(getAllCallback());
             }
         };
@@ -115,9 +116,7 @@ public class MainActivity extends AppCompatActivity {
     private Callback<Session> getInsertCallback() {
         return result -> {
             if (result.getId() > 0) {
-                sessions.add(result);
-                notifyAdapeter();
-                setSpnValues();
+                sessionService.getAll(getAllCallback());
             }
         };
     }
@@ -155,9 +154,27 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        lvSessions.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                Session deletionSession = sessions.get(position);
+                int sessionsLenghtBefore = sessions.size();
+                sessionService.delete(deletionSession, getDeleteCallback());
+                int sessionsLenghtAfter = sessions.size();
+                return sessionsLenghtAfter < sessionsLenghtBefore;
+            };
+        });
+
         btnGetData.setOnClickListener(getNPointSessions());
         btnProfile.setOnClickListener(startProfileAcitivity());
         fabAddSession.setOnClickListener(addSession());
+    }
+
+    private Callback<Boolean> getDeleteCallback() {
+        return result -> {
+            sessions.clear();
+            sessionService.getAll(getAllCallback());
+        };
     }
 
     private View.OnClickListener addSession() {

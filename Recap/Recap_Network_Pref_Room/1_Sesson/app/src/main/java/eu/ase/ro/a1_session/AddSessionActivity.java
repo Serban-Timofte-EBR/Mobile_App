@@ -30,6 +30,8 @@ public class AddSessionActivity extends AppCompatActivity {
     private Spinner spnRoom;
     private Button btnSave;
 
+    private Long sessionUpdateID = 0L;
+
     private Intent intent;
 
     @Override
@@ -57,7 +59,7 @@ public class AddSessionActivity extends AppCompatActivity {
 
         if (intent.getSerializableExtra(MainActivity.MAIN_SESSION_KEY) != null) {
             Session sessionToUpdate = (Session) intent.getSerializableExtra(MainActivity.MAIN_SESSION_KEY);
-
+            sessionUpdateID = sessionToUpdate.getId();
             tietTitle.setText(sessionToUpdate.getTitle());
             tietDate.setText(DateConvertor.fromDate(sessionToUpdate.getDate()));
             tietSpeaker.setText(sessionToUpdate.getSpeaker());
@@ -77,6 +79,9 @@ public class AddSessionActivity extends AppCompatActivity {
                 String room = spnRoom.getSelectedItem().toString();
 
                 Session userSession = new Session(title, date, speaker, duration, room);
+                if (sessionUpdateID > 0) {
+                    userSession.setId(sessionUpdateID);
+                }
                 intent.putExtra(ADD_SESSION_KEY, userSession);
                 setResult(RESULT_OK, intent);
                 finish();
