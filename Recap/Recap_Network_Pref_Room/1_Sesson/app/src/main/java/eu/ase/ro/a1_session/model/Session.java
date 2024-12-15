@@ -1,6 +1,7 @@
 package eu.ase.ro.a1_session.model;
 
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
@@ -17,9 +18,11 @@ public class Session implements Serializable {
     private int duration;
     private String room;
 
+    @Ignore
     public Session() {
     }
 
+    @Ignore
     public Session(String title, Date date, String speaker, int duration, String room) {
         this.title = title;
         this.date = date;

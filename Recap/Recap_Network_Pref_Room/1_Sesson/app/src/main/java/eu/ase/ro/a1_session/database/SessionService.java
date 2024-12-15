@@ -26,18 +26,20 @@ public class SessionService {
         Callable<Session> callable = new Callable<Session>() {
             @Override
             public Session call() throws Exception {
-                if (session.getId() > 0) {
+                List<Session> allSessions = sessionDao.getAll();
+
+                if (allSessions.contains(session)) {
                     return null;
                 }
 
                 long id = sessionDao.insert(session);
 
-                if (id < 0) {
-                    return null;
+                if (id > 0) {
+                    session.setId(id);
+                    return session;
                 }
 
-                session.setId(id);
-                return session;
+                return null;
             }
         };
         asyncTaskRunner.executeAsync(callable, callback);

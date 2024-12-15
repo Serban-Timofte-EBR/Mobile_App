@@ -54,6 +54,15 @@ public class AddSessionActivity extends AppCompatActivity {
         tietDuration = findViewById(R.id.tiet_add_duration);
         spnRoom = findViewById(R.id.spn_add_room);
         btnSave = findViewById(R.id.btn_add_save);
+
+        if (intent.getSerializableExtra(MainActivity.MAIN_SESSION_KEY) != null) {
+            Session sessionToUpdate = (Session) intent.getSerializableExtra(MainActivity.MAIN_SESSION_KEY);
+
+            tietTitle.setText(sessionToUpdate.getTitle());
+            tietDate.setText(DateConvertor.fromDate(sessionToUpdate.getDate()));
+            tietSpeaker.setText(sessionToUpdate.getSpeaker());
+            tietDuration.setText(String.valueOf(sessionToUpdate.getDuration()));
+        }
         
         btnSave.setOnClickListener(saveSession());
     }

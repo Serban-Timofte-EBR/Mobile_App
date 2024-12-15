@@ -43,6 +43,8 @@ import eu.ase.ro.a1_session.network.SessionParser;
 
 public class MainActivity extends AppCompatActivity {
     public static final String SPINNER_SELECTION_SHARED = "spinner_selection_shared";
+    public static final String MAIN_SESSION_KEY = "main_session_key";
+    public static final String MAIN_SESSION_POSITION = "main_session_position";
     private final String NPOINT_URL = "https://api.npoint.io/0b4e456e680e358ed1ba";
 
     private Spinner spnFilter;
@@ -87,10 +89,25 @@ public class MainActivity extends AppCompatActivity {
     private ActivityResultCallback<ActivityResult> getAddSessionCallback() {
         return result -> {
             if (result.getResultCode() == RESULT_OK && result.getData() != null) {
-                Session addedSession = (Session) result.getData().getSerializableExtra(AddSessionActivity.ADD_SESSION_KEY);
-                setSpnValues();
-                notifyAdapeter();
-                sessionService.insert(addedSession, getInsertCallback());
+                if (result.getData().getSerializableExtra(MAIN_SESSION_POSITION) != null) {
+                    Session updatedSession = (Session) result.getData().getSerializableExtra(AddSessionActivity.ADD_SESSION_KEY);
+                    Toast.makeText(getApplicationContext(), String.valueOf(updatedSession.getId()), Toast.LENGTH_SHORT).show();
+                    int position = (int) result.getData().getSerializableExtra(MAIN_SESSION_POSITION);
+                    sessionService.update(updatedSession, getUpdateCallback());
+                } else {
+                    Session addedSession = (Session) result.getData().getSerializableExtra(AddSessionActivity.ADD_SESSION_KEY);
+                    setSpnValues();
+                    notifyAdapeter();
+                    sessionService.insert(addedSession, getInsertCallback());
+                }
+            }
+        };
+    }
+
+    private Callback<Session> getUpdateCallback() {
+        return result -> {
+            if (result != null) {
+                sessionService.getAll(getAllCallback());
             }
         };
     }
@@ -126,6 +143,17 @@ public class MainActivity extends AppCompatActivity {
         });
 
         setLvSessionsAdapter();
+
+        lvSessions.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Session session = sessions.get(position);
+                Intent updateIntent = new Intent(getApplicationContext(), AddSessionActivity.class);
+                updateIntent.putExtra(MAIN_SESSION_POSITION, position);
+                updateIntent.putExtra(MAIN_SESSION_KEY, session);
+                launcher.launch(updateIntent);
+            }
+        });
 
         btnGetData.setOnClickListener(getNPointSessions());
         btnProfile.setOnClickListener(startProfileAcitivity());
