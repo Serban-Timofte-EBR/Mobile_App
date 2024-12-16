@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">4_Pacient</string>
+    <string name="add_invalid_name">Invalid name!</string>
+    <string name="add_invalid_hospital">Invalid Hospital</string>
+    <string name="add_invalid_number_of_consultation">Invalid Number of Consultation</string>
+    <string name="hospital_name">Hospital Name</string>
+    <string name="hospital_save">Save</string>
+    <string name="welcom_message_template">Bun venit la %s</string>
+</resources>
