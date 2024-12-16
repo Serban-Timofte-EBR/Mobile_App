@@ -23,12 +23,14 @@ import eu.ase.ro.a2_exam.model.Exam;
 
 public class AddExamActivity extends AppCompatActivity {
     public static final String ADD_EXAM_KEY = "add_exam_key";
+    public static final String UPDATED_EXAM_FROM_ADD_KEY = "updated_exam_from_add_key";
     private Intent intent;
     private TextInputEditText tietDate;
     private Spinner spnCourse;
     private TextInputEditText tietClasroom;
     private TextInputEditText tietSupervisor;
     private Button btnSave;
+    private Long examId = 0L;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,23 +53,48 @@ public class AddExamActivity extends AppCompatActivity {
         tietSupervisor = findViewById(R.id.tiet_supervisor);
         btnSave = findViewById(R.id.btn_save_exam);
 
-        btnSave.setOnClickListener(saveExamFromActivity());
+        if (intent.getSerializableExtra(MainActivity.UPDATE_EXAM_KEY) != null) {
+            Exam examForUpdate = (Exam) intent.getSerializableExtra(MainActivity.UPDATE_EXAM_KEY);
+            tietDate.setText(DateConvertor.fromDate(examForUpdate.getDate()));
+            tietClasroom.setText(examForUpdate.getClassRoom());
+            tietSupervisor.setText(examForUpdate.getSupervisor());
+            examId = examForUpdate.getId();
+
+            btnSave.setOnClickListener(updateExamFromActiviy());
+        } else {
+            btnSave.setOnClickListener(saveExamFromActivity());
+        }
+    }
+
+    private View.OnClickListener updateExamFromActiviy() {
+        return view -> {
+          if (isValid()) {
+              Exam userExam = generateExamFromUI();
+              userExam.setId(examId);
+              intent.putExtra(UPDATED_EXAM_FROM_ADD_KEY, userExam);
+              setResult(RESULT_OK, intent);
+              finish();
+          }
+        };
     }
 
     private View.OnClickListener saveExamFromActivity() {
         return view -> {
           if (isValid()) {
-              Date date = DateConvertor.toDate(tietDate.getText().toString());
-              Course course = Course.valueOf(spnCourse.getSelectedItem().toString());
-              String clasRoom = tietClasroom.getText().toString();
-              String supervisor = tietSupervisor.getText().toString();
-
-              Exam userExam = new Exam(date, course, clasRoom, supervisor);
+              Exam userExam = generateExamFromUI();
               intent.putExtra(ADD_EXAM_KEY, userExam);
               setResult(RESULT_OK, intent);
               finish();
           }
         };
+    }
+
+    private Exam generateExamFromUI() {
+        Date date = DateConvertor.toDate(tietDate.getText().toString());
+        Course course = Course.valueOf(spnCourse.getSelectedItem().toString());
+        String clasRoom = tietClasroom.getText().toString();
+        String supervisor = tietSupervisor.getText().toString();
+        return new Exam(date, course, clasRoom, supervisor);
     }
 
     private boolean isValid() {

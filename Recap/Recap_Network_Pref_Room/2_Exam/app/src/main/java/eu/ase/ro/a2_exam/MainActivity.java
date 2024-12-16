@@ -40,6 +40,7 @@ import eu.ase.ro.a2_exam.network.ExamParser;
 import eu.ase.ro.a2_exam.network.HttpManager;
 
 public class MainActivity extends AppCompatActivity {
+    public static final String UPDATE_EXAM_KEY = "update_exam_key";
     private final String NPOINT_URL = "https://api.npoint.io/5b2a9af3a9e1874bdc4d";
 
     private List<Exam> exams = new ArrayList<>();
@@ -102,7 +103,18 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Exam selectedExam = exams.get(position);
-                Toast.makeText(getApplicationContext(), "Exam ID: " + selectedExam.getId(), Toast.LENGTH_SHORT).show();
+                Intent updateIntent = new Intent(getApplicationContext(), AddExamActivity.class);
+                updateIntent.putExtra(UPDATE_EXAM_KEY, selectedExam);
+                launcher.launch(updateIntent);
+            }
+        });
+        lvExams.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                Exam examToDelete = exams.get(position);
+                int examSize = exams.size();
+                examService.delete(examToDelete, getDeleteCallback());
+                return exams.size() < examSize;
             }
         });
 
@@ -179,8 +191,15 @@ public class MainActivity extends AppCompatActivity {
     private ActivityResultCallback<ActivityResult> addExamCallback() {
         return result -> {
             if (result.getResultCode() == RESULT_OK && result.getData() != null) {
-                Exam addedExam = (Exam) result.getData().getSerializableExtra(AddExamActivity.ADD_EXAM_KEY);
-                examService.insert(addedExam, getInsertCallback());
+                if (result.getData().getSerializableExtra(AddExamActivity.ADD_EXAM_KEY) != null){
+                    Exam addedExam = (Exam) result.getData().getSerializableExtra(AddExamActivity.ADD_EXAM_KEY);
+                    examService.insert(addedExam, getInsertCallback());
+                }
+                else if (result.getData().getSerializableExtra(AddExamActivity.UPDATED_EXAM_FROM_ADD_KEY) != null) {
+                    Exam updatedExam = (Exam) result.getData().getSerializableExtra(AddExamActivity.UPDATED_EXAM_FROM_ADD_KEY);
+                    int initialSize = exams.size();
+                    examService.update(updatedExam, getUpdateCallback());
+                }
             }
         };
     }
@@ -195,6 +214,23 @@ public class MainActivity extends AppCompatActivity {
     private Callback<Exam> getInsertCallback() {
         return result -> {
             examService.getAll(getAllCallback());
+        };
+    }
+
+    private Callback<Exam> getUpdateCallback() {
+        return result -> {
+            exams.clear();
+            examService.getAll(getAllCallback());
+        };
+    }
+
+    private Callback<Boolean> getDeleteCallback() {
+        return result -> {
+            if (result) {
+                exams.clear();
+                examService.getAll(getAllCallback());
+                Toast.makeText(getApplicationContext(), R.string.main_the_exam_was_deleted, Toast.LENGTH_SHORT).show();
+            }
         };
     }
 }

@@ -10,6 +10,7 @@
     <string name="label_exam_classroom">Classroom</string>
     <string name="label_exam_supervisor">Supervisor</string>
     <string name="button_save_exam">Save Exam</string>
+    <string name="main_the_exam_was_deleted">The exam was deleted</string>
     <string-array name="course_array">
         <item>DAM</item>
         <item>CTS</item>
