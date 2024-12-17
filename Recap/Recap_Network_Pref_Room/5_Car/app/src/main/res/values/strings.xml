@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">5_Car</string>
+    <string name="main_sterge">Sterge</string>
+    <string name="main_it_is_a_problem_with_the_connection">It is a problem with the connection!</string>
+    <string-array name="spn_comp_values">
+        <item>Mai Mic</item>
+        <item>Mai Mare</item>
+        <item>Egal</item>
+    </string-array>
+</resources>
