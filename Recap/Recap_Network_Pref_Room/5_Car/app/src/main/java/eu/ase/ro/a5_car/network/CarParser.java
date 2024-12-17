@@ -14,7 +14,6 @@ import eu.ase.ro.a5_car.model.Car;
 public class CarParser {
     public static List<Car> parseJSONResponse(String json) {
         List<Car> cars = new ArrayList<>();
-        Log.i("NPOINT", "JSON: " + json.toString());
         try {
             JSONObject root = new JSONObject(json);
             JSONObject garageInfo = root.getJSONObject("garageInfo");

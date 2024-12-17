@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
 
+import eu.ase.ro.a5_car.database.CarService;
 import eu.ase.ro.a5_car.model.Car;
 import eu.ase.ro.a5_car.network.AsyncTaskRunner;
 import eu.ase.ro.a5_car.network.Callback;
@@ -31,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
 
     private List<Car> cars = new ArrayList<>();
 
+    private CarService carService;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,7 +45,10 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
+        carService = new CarService(getApplicationContext());
         initComponent();
+
+        carService.getAll(getAllCallback());
     }
 
     private void initComponent() {
@@ -62,9 +68,31 @@ public class MainActivity extends AppCompatActivity {
         return result -> {
             if (result != null) {
                 List<Car> parsedCars = CarParser.parseJSONResponse(result);
-                Log.i("NPOINT", parsedCars.toString());
+                Toast.makeText(this, parsedCars.toString(), Toast.LENGTH_SHORT).show();
+
+                for (Car car : parsedCars) {
+                    if (!cars.contains(car)){
+                        carService.insert(car, getInsertCallback());
+                    }
+                }
             } else {
-                Toast.makeText(getApplicationContext(), R.string.main_it_is_a_problem_with_the_connection, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Eroare de conexiune", Toast.LENGTH_SHORT).show();
+            }
+        };
+    }
+
+    private Callback<Car> getInsertCallback() {
+        return result -> {
+            if (result.getId() > 0) {
+                cars.add(result);
+            }
+        };
+    }
+
+    private Callback<List<Car>> getAllCallback() {
+        return result -> {
+            if (result != null) {
+                cars.addAll(result);
             }
         };
     }
