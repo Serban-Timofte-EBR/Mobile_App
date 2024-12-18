@@ -62,4 +62,29 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:id="@+id/main_btn_delete"
         android:text="@string/main_sterge" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/main_til_model"
+        app:layout_constraintTop_toBottomOf="@id/main_btn_delete"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        >
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/main_tiet_name"
+            android:layout_margin="8dp"
+            android:hint="@string/main_update_car_name" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/main_til_model"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/main_btn_update"
+        android:text="@string/main_actualizeaza" />
 </androidx.constraintlayout.widget.ConstraintLayout>

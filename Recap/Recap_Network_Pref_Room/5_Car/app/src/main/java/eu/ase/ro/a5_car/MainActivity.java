@@ -31,12 +31,15 @@ import eu.ase.ro.a5_car.network.CarParser;
 import eu.ase.ro.a5_car.network.HttpManager;
 
 public class MainActivity extends AppCompatActivity {
+    // De insertat aceeasi logica. Filtram cu spinner si actualizam numele fiecarei masini din colectia filtrata cu ce avem in tiet
     public static final String CARS_PREFERENCES = "cars_preferences";
     public static final String CAR_YEAR_PREF = "car_year_pref";
     private FloatingActionButton fabGetData;
     private Spinner spnComp;
     private TextInputEditText tietValue;
     private Button btnDelete;
+    private Button btnUpdate;
+    private TextInputEditText tietCarName;
 
     private final String NPOINT_URL = "https://api.npoint.io/e6e75ce93e54db938689";
     private AsyncTaskRunner asyncTaskRunner = new AsyncTaskRunner();
@@ -69,11 +72,41 @@ public class MainActivity extends AppCompatActivity {
         spnComp = findViewById(R.id.main_spn_comparation);
         tietValue = findViewById(R.id.main_tiet_value);
         btnDelete = findViewById(R.id.main_btn_delete);
+        tietCarName = findViewById(R.id.main_tiet_name);
+        btnUpdate = findViewById(R.id.main_btn_update);
         sharedPreferences = getApplicationContext().getSharedPreferences(CARS_PREFERENCES, Context.MODE_PRIVATE);
 
         loadPreferences();
 
         btnDelete.setOnClickListener(deleteCarsFromDB());
+        btnUpdate.setOnClickListener(updateCarFromDB());
+    }
+
+    private View.OnClickListener updateCarFromDB() {
+        return view -> {
+            Integer year = savePreferences();
+            String spnCompValue = spnComp.getSelectedItem().toString();
+            String newName = tietCarName.getText().toString().isBlank()
+                    ? ""
+                    : tietCarName.getText().toString();
+            
+            if (spnCompValue.equals("Mai Mic")) {
+                List<Car> carsForUpdate = cars.stream()
+                        .filter(car -> car.getFabricationYear() < year)
+                        .collect(Collectors.toList());
+                for (Car car: carsForUpdate) {
+                    car.setBrand(newName);
+                    carService.update(car, getUpdateCallback());
+                }
+            }
+        };
+    }
+
+    private Callback<Car> getUpdateCallback() {
+        return result -> {
+            cars.clear();
+            carService.getAll(getAllCallback());
+        };
     }
 
     private void loadPreferences() {

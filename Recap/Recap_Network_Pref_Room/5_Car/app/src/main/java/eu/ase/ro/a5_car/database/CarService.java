@@ -44,6 +44,26 @@ public class CarService {
         asyncTaskRunner.executeAsync(callable, callback);
     }
 
+    public void update(Car car, Callback<Car> callback) {
+        Callable<Car> callable = new Callable<Car>() {
+            @Override
+            public Car call() throws Exception {
+                if (car.getId() <= 0) {
+                    return null;
+                }
+
+                int res = carDao.update(car);
+
+                if (res <= 0) {
+                    return null;
+                }
+
+                return car;
+            }
+        };
+        asyncTaskRunner.executeAsync(callable, callback);
+    }
+
     public void delete(Car car, Callback<Boolean> callback) {
         Callable<Boolean> callable = new Callable<Boolean>() {
             @Override
