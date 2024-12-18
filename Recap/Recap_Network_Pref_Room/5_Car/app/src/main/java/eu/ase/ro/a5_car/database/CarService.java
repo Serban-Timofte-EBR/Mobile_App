@@ -43,4 +43,20 @@ public class CarService {
         };
         asyncTaskRunner.executeAsync(callable, callback);
     }
+
+    public void delete(Car car, Callback<Boolean> callback) {
+        Callable<Boolean> callable = new Callable<Boolean>() {
+            @Override
+            public Boolean call() throws Exception {
+                if (car.getId() <= 0) {
+                    return null;
+                }
+
+                int count = carDao.delete(car);
+
+                return count == 1;
+            }
+        };
+        asyncTaskRunner.executeAsync(callable, callback);
+    }
 }
