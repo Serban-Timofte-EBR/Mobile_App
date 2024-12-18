@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">7_Project</string>
+    <string name="main_company_name">Company Name</string>
+    <string name="main_delete_data">Delete Data</string>
+    <string name="main_update_data">Update data</string>
+    <string name="main_buget_prag">Buget Prag</string>
+    <string-array name="spinner_comparation_values">
+        <item>Mai Mic</item>
+        <item>Mai Mare</item>
+        <item>Egal</item>
+    </string-array>
+</resources>
