@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">6_Costum</string>
+    <string name="main_increase_price">Increase Price</string>
+    <string name="main_sterge_datele">Sterge Datele</string>
+    <string name="main_actualizeaza_datele">Actualizeaza Datele</string>
+    <string-array name="spn_comp_values">
+        <item>Mai Mic</item>
+        <item>Mai Mare</item>
+        <item>Egal</item>
+    </string-array>
+</resources>
