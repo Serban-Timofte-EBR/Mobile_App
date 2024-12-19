@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">8_Workshop</string>
+    <string name="main_price">Price</string>
+    <string name="main_delete">Delete</string>
+    <string name="main_update">Update</string>
+    <string-array name="main_spn_comparation_values">
+        <item>Mai Mic</item>
+        <item>Mai Mare</item>
+        <item>Egal</item>
+    </string-array>
+</resources>
