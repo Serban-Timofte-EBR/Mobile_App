@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">9_Jurnal</string>
+    <string name="main_expenses">Expenses</string>
+    <string name="main_expenses_tiet">Expenses</string>
+    <string name="main_sterge">Sterge</string>
+    <string name="datele_pentru_stergere_nu_sunt_valide">Datele pentru stergere nu sunt valide!</string>
+    <string-array name="main_spn_values">
+        <item>are valoarea egala cu</item>
+        <item>are valoarea mai mare decat</item>
+        <item>are valoarea mai mica decat</item>
+    </string-array>
+</resources>

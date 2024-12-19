@@ -25,6 +25,7 @@ import java.util.stream.Collectors;
 public class MainActivity extends AppCompatActivity {
     public static final String WORKSHOP_PREFERENCES = "workshop_preferences";
     public static final String WORKSHOP_PRICE = "workshop_price";
+    public static final String WORKSHOP_COMPARATION = "workshop_comparation";
     private final String NPOINT_URL = "https://api.npoint.io/9165df24cb1b721c3dd6";
 
     private List<Workshop> workshops = new ArrayList<>();
@@ -97,7 +98,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void loadPreferences() {
         Float price = sharedPreferences.getFloat(WORKSHOP_PRICE, 0F);
+        int spnValuePosition = sharedPreferences.getInt(WORKSHOP_COMPARATION, 0);
         tietPrice.setText(price.toString());
+        spnComparation.setSelection(spnValuePosition);
     }
 
     private View.OnClickListener deleteWorkshops() {
@@ -149,8 +152,10 @@ public class MainActivity extends AppCompatActivity {
         float price = tietPrice.getText().toString().isBlank() == false && Float.parseFloat(tietPrice.getText().toString()) > 0F
                 ? Float.parseFloat(tietPrice.getText().toString())
                 : 0F;
+        int spinnerValuePositon = spnComparation.getSelectedItemPosition();
 
         editor.putFloat(WORKSHOP_PRICE, price);
+        editor.putInt(WORKSHOP_COMPARATION, spinnerValuePositon);
         editor.apply();
 
         return price;
