@@ -41,5 +41,19 @@
     <string name="about_year">Year: 2024</string>
     <string name="about_version">Version: v1.0.0</string>
     <string name="about_dam_app">DAM App</string>
-    <string name="main_menu_import_data">Import Data</string>
+    <string name="menu_import_data">Import Data</string>
+    <string name="main_import_data_clicked">Import data clicked</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="expense_row_amount_template">%.2f RON</string>
+    <string name="shared_saved">Shared saved</string>
+    <string name="expense_removed">"Expense removed %s"</string>
+
+    <string name="please_insert_your_review">Please insert your review</string>
+    <string name="review">Review</string>
+    <string name="review_missing_rating">Missing rating</string>
+    <string name="review_missing_description">Missing description</string>
+    <string name="nav_review">Review</string>
+    <string name="review_no_review_selected">No review selected</string>
 </resources>
