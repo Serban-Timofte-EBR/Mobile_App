@@ -128,3 +128,27 @@ protected void onProgressUpdate(Integer... values) {
 - Functioneaza impreuna cu metoda **onDraw()** a unui View.
 
 - De fiecare data cand ecranul trebuie redesenat, Android apeleaza **onDraw()**
+
+## Servicii locale
+
+- Sunt initializate cu 2 comenzi (una sau cealalta)
+
+1. **startService()** - daca serviciul ruleaza independent de componenta care l-a initializat
+
+2. **bindService()** -  daca serviciul ruleaza dependent de componente care l-a initializat
+
+## Actions (Mesaje implicite)
+
+1. ACTION_CALL
+
+- Apeleaza direct un numar, fara a mai deschide o interfata
+
+2. ACTION_DIAL
+
+- Deschide interfata de telefon cu un numar predefinit
+
+## BroadcastReceiver
+
+- O componenta Android care permite plicațiilor să asculte și să răspundă la mesaje sau evenimente transmise la nivel de sistem sau aplicație. Aceste mesaje (numite broadcasts) pot fi generate de sistemul Android sau de aplicații.
+
+
