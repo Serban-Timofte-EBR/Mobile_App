@@ -151,4 +151,33 @@ protected void onProgressUpdate(Integer... values) {
 
 - O componenta Android care permite plicațiilor să asculte și să răspundă la mesaje sau evenimente transmise la nivel de sistem sau aplicație. Aceste mesaje (numite broadcasts) pot fi generate de sistemul Android sau de aplicații.
 
+## Fisiere specifice Gradle
+
+1. libs.versions.toml
+
+- Este un catalog de versiuni pentru proiectele Android
+
+- Centralizeaza versiunile si plug-in-urile
+
+- Contine versions, libraries si plug-ins
+
+2. build.gradle (root)
+
+- Specifica versiunea Gradle Plugin utilizata 
+
+- Defineste configurarile generale ale proiectului
+
+3. build.gradle (module)
+
+- Defineste configurarile unui modul (spre exemplu app)
+
+- Specifica versiunea de SDK
+
+- Listeaza dependentele din respectivul modul
+
+**OBS:** Libraria este un sed de cod reutilizabil care aduce o functionalitate noua. Plug-in-ul este extindere a sistemului de build Gradle care permite adaugarea unor configuratii speciale
+
+## Testele JUnit
+
+- JUnit este un limbaj pentru crearea de teste unitare in Java
 
