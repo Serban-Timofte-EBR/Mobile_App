@@ -8,7 +8,7 @@
 
 **Metodele AsynTask**
 
-1. *onPreExecute()*
+1. _onPreExecute()_
 
 - Este apelata inainte de inceperea executarii in thread-ul secundar
 
@@ -24,7 +24,7 @@ protected void onPreExecute() {
 }
 ```
 
-2. *doInBackground(Params... params)*
+2. _doInBackground(Params... params)_
 
 - Ruleaza in thread-ul secundar
 
@@ -40,7 +40,7 @@ protected String doInBackground(String... params) {
 }
 ```
 
-3. *publishProgress()*
+3. _publishProgress()_
 
 - Este utilizata in interiorul metodei doInBackground() pentru a trimite informatii catre Thread-ul principal
 
@@ -50,7 +50,7 @@ protected String doInBackground(String... params) {
 publishProgress(50); // Transmite progresul de 50%
 ```
 
-4. *onProgressUpdate(Progress... values)*
+4. _onProgressUpdate(Progress... values)_
 
 - Este apelata pe firul principal cand publishProgress() este invocata
 
@@ -63,15 +63,15 @@ protected void onProgressUpdate(Integer... values) {
 }
 ```
 
-5. *onPostExecute(Result result)*
+5. _onPostExecute(Result result)_
 
 - Este apeladata dupa ce metoda doInBackground() si-a terminat executia
 
 - Rulata pe thread-ul principal
 
-- Este folosita pentru a afisa rezultatele operatiei asincrone 
+- Este folosita pentru a afisa rezultatele operatiei asincrone
 
-6. *onCancelled()*
+6. _onCancelled()_
 
 - Este apelata atunci cand sarcina asincrona este anulata prin metoda cancel()
 
@@ -79,21 +79,21 @@ protected void onProgressUpdate(Integer... values) {
 
 **Fluxul execuției în AsyncTask**
 
-1.	onPreExecute() – Pregătirea interfeței utilizatorului.
+1. onPreExecute() – Pregătirea interfeței utilizatorului.
 
-2.	doInBackground() – Execuția operației în fundal.
+2. doInBackground() – Execuția operației în fundal.
 
 - Opțional: publishProgress() pentru actualizări intermediare.
 
-3.	onProgressUpdate() – Actualizarea progresului pe UI.
+3. onProgressUpdate() – Actualizarea progresului pe UI.
 
-4.	onPostExecute() – Finalizarea și afișarea rezultatelor pe UI.
+4. onPostExecute() – Finalizarea și afișarea rezultatelor pe UI.
 
 ## Ciclurile de viata
 
 1. **onCreate()**
 
-- Este configurata interfata utilizatorului (*setContentView()*)
+- Este configurata interfata utilizatorului (_setContentView()_)
 
 - Activitatea inca nu este vizibila si utilizatorul nu poate interactiona cu ea in acest moment
 
@@ -117,7 +117,7 @@ protected void onProgressUpdate(Integer... values) {
 
 &emsp;&emsp; - drawLine() - pentru a desena linii.
 
-&emsp;&emsp; -  drawRect() - pentru a desena dreptunghiuri.
+&emsp;&emsp; - drawRect() - pentru a desena dreptunghiuri.
 
 &emsp;&emsp; - drawCircle() - pentru a desena cercuri.
 
@@ -135,7 +135,7 @@ protected void onProgressUpdate(Integer... values) {
 
 1. **startService()** - daca serviciul ruleaza independent de componenta care l-a initializat
 
-2. **bindService()** -  daca serviciul ruleaza dependent de componente care l-a initializat
+2. **bindService()** - daca serviciul ruleaza dependent de componente care l-a initializat
 
 ## Actions (Mesaje implicite)
 
@@ -163,7 +163,7 @@ protected void onProgressUpdate(Integer... values) {
 
 2. build.gradle (root)
 
-- Specifica versiunea Gradle Plugin utilizata 
+- Specifica versiunea Gradle Plugin utilizata
 
 - Defineste configurarile generale ale proiectului
 
@@ -181,3 +181,23 @@ protected void onProgressUpdate(Integer... values) {
 
 - JUnit este un limbaj pentru crearea de teste unitare in Java
 
+## Comenzi SQLite
+
+1. Inserarea
+
+- Prin insert, execSQL()
+
+- Metoda insert are 3 parametrii: numele tabelei, o valoare pentru o coloană null (dacă este cazul) și un obiect ContentValues care conține datele ce trebuie inserate.
+
+- execSQL() executa manual o comanda SQL
+
+```java
+ContentValues values = new ContentValues();
+values.put("column_name", "value");
+database.insert("table_name", null, values);
+
+// Sau
+database.execSQL("INSERT INTO table_name (column_name) VALUES ('value');");
+```
+
+**OBS**: Se poate folosi si rawQuery pentru insert, dar exista riscul de SQL Injection
