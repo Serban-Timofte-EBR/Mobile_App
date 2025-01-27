@@ -211,3 +211,23 @@ database.execSQL("INSERT INTO table_name (column_name) VALUES ('value');");
 ## Notificari
 
 - Se foloseste NotificationManager, NotificationChannel si PendingIntent
+
+- **Componentele principale ale notificarilor din Android:**
+
+1. Notification Manager:
+
+- Responsabila pentru gestionarea notificarilor si pentru a le afisa in bara de stare a dispozitivului
+
+2. NotificationCompact.Builder:
+
+- Este utilizata pentru a crea notificari compatibile cu diferite versiuni Android
+
+3. NotificationChannel:
+
+- Incepand cu Android 8.0
+
+- Este necesar pentru a grupa notificarile intr-un canal, oferind utilizatorului control asupra setarilor notificarilor
+
+4. PendingIntent:
+
+- Este folosit pentru a deschide o activitate sau a executa o actiune atunci cand utilizatorul interactioneaza cu activitatea
