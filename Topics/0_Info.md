@@ -201,3 +201,13 @@ database.execSQL("INSERT INTO table_name (column_name) VALUES ('value');");
 ```
 
 **OBS**: Se poate folosi si rawQuery pentru insert, dar exista riscul de SQL Injection
+
+## Content Provider
+
+- Componenta Android pentru a partaja date intre aplicatii
+
+- Acesta ofera un mecanism pentru accesarea si manipularea datelor persistent stocate intr-o baza de date, fisiere sau alte surse
+
+## Notificari
+
+- Se foloseste NotificationManager, NotificationChannel si PendingIntent
